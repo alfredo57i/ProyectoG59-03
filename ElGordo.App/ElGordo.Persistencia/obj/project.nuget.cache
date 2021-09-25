@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "QgZ5RtJvvMwoTtJuvNAlTFHgV1qDM7UckftP5YHr/vNIst5aJNV8CpSGnF9oQkC3lOW2PTAj8t3cPJuYaMy4Mg==",
+  "success": true,
+  "projectFilePath": "C:\\ProyectoG59-03\\ElGordo.App\\ElGordo.Persistencia\\ElGordo.Persistencia.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Equipo\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Equipo\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
