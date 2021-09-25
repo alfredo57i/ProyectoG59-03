@@ -1,0 +1,4 @@
+# Directorios ignorados
+ElGordo.App/ElGordo.Frontend/.vscode/
+ElGordo.App/ElGordo.Frontend/bin/
+ElGordo.App/ElGordo.Frontend/obj/Debug/
