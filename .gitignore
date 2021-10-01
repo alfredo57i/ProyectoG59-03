@@ -1,13 +1,13 @@
 # Directorios ignorados
-ElGordo.App/ElGordo.Frontend/.vscode/
-ElGordo.App/ElGordo.Frontend/bin/
-ElGordo.App/ElGordo.Frontend/obj/
-ElGordo.App/ElGordo.Consola/.vscode/
-ElGordo.App/ElGordo.Consola/bin/
-ElGordo.App/ElGordo.Consola/obj/
-ElGordo.App/ElGordo.Dominio/.vscode/
-ElGordo.App/ElGordo.Dominio/bin/
-ElGordo.App/ElGordo.Dominio/obj/
-ElGordo.App/ElGordo.Persistencia/.vscode/
-ElGordo.App/ElGordo.Persistencia/bin/
-ElGordo.App/ElGordo.Persistencia/obj/
+ElGordo.App/ElGordo.App.Frontend/bin/
+ElGordo.App/ElGordo.App.Frontend/obj/
+ElGordo.App/ElGordo.App.Frontend/.vscode/
+ElGordo.App/ElGordo.App.Consola/.vscode/
+ElGordo.App/ElGordo.App.Consola/bin/
+ElGordo.App/ElGordo.App.Consola/obj/
+ElGordo.App/ElGordo.App.Dominio/.vscode/
+ElGordo.App/ElGordo.App.Dominio/bin/
+ElGordo.App/ElGordo.App.Dominio/obj/
+ElGordo.App/ElGordo.App.Persistencia/.vscode/
+ElGordo.App/ElGordo.App.Persistencia/bin/
+ElGordo.App/ElGordo.App.Persistencia/obj/
