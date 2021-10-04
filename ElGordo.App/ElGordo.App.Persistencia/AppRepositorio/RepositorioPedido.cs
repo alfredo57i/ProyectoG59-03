@@ -14,7 +14,7 @@ namespace ElGordo.App.Persistencia
         }
         public Pedido AddPedido(Pedido pedido)
         {
-            var nuevoPedido = _appContext.Pedido.Add(pedido);            
+            var nuevoPedido = _appContext.Pedido.Add(pedido);
             _appContext.SaveChanges();
             return nuevoPedido.Entity;
         }
