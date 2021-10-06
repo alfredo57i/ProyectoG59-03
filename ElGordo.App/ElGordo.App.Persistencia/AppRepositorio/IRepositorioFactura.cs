@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using ElGordo.App.Dominio;
 
-namespace ElGordo.App.Persistencia.AppRepositorio
+namespace ElGordo.App.Persistencia
 {
     public interface IRepositorioFactura
     {
         IEnumerable<Factura> GetAllFacturas();
         Factura AddFactura(Factura factura);
-        Factura UpdateFactura(Factura factura);
-        void DeleteFactura(int idFactura);
+        Factura UpdateEstadoFactura(int idFactura, int estado);
+
         Factura GetFactura(int idFactura);
 
     }
