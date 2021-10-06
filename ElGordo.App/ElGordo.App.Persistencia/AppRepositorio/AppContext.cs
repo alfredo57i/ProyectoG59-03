@@ -5,7 +5,6 @@ namespace ElGordo.App.Persistencia
 {
     public class AppContext : DbContext
     {
-        public DbSet<Cliente> Cliente{get;set;}
         public DbSet<EstadoProducto> EstadoProducto{get;set;}
         public DbSet<Producto> Producto{get;set;}
         public DbSet<Detalle> Detalle{get;set;}
@@ -18,8 +17,8 @@ namespace ElGordo.App.Persistencia
         {
             if(!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog =ElGordoData");
+                optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog =ElGordoDB");
             }
-        }        
+        }
     }
 }

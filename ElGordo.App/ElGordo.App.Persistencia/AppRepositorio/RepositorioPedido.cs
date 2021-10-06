@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ElGordo.App.Dominio;
@@ -19,13 +20,6 @@ namespace ElGordo.App.Persistencia
             return nuevoPedido.Entity;
         }
 
-        public void DeletePedido(int idPedido)
-        {
-            var pedidoEliminar = _appContext.Pedido.FirstOrDefault(p => p.Id == idPedido);
-            if (pedidoEliminar == null) return;
-            _appContext.Pedido.Remove(pedidoEliminar);
-            _appContext.SaveChanges();
-        }
 
         public IEnumerable<Pedido> GetAll()
         {
@@ -60,16 +54,22 @@ namespace ElGordo.App.Persistencia
             return pedidoFind;
         }
 
-        public Pedido UpdatePedido(Pedido pedido)
+        public Pedido UpdateEstadoPedido(int idPedido,int idEstado)
         {
-            var pedidoActualizar = _appContext.Pedido.FirstOrDefault(p => p.Id == pedido.Id);
+            var pedidoActualizar = _appContext.Pedido.FirstOrDefault(p => p.Id == idPedido);
             if (pedidoActualizar != null)
             {
-                pedidoActualizar.Estado = pedido.Estado;
-                pedidoActualizar.Fecha_pedido = pedido.Fecha_pedido;
-                pedidoActualizar.Fecha_preparacion = pedido.Fecha_preparacion;
-                pedidoActualizar.Fecha_envio = pedido.Fecha_envio;
-                pedidoActualizar.Fecha_entrega = pedido.Fecha_entrega;
+                pedidoActualizar.Estado = _appContext.EstadoPedido.FirstOrDefault(e=>e.Id==idEstado);
+                if(idEstado==2){
+                    pedidoActualizar.Fecha_preparacion = DateTime.Now;
+                }
+                else if(idEstado==3)
+                {
+                    pedidoActualizar.Fecha_envio = DateTime.Now;
+                }
+                else{
+                    pedidoActualizar.Fecha_entrega = DateTime.Now;
+                }
                 _appContext.SaveChanges();
             }
             return pedidoActualizar;

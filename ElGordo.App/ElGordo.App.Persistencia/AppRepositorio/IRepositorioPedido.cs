@@ -10,7 +10,6 @@ namespace ElGordo.App.Persistencia
          IEnumerable<Pedido> GetPorCodigo(string codigo);
          Pedido GetPedido(int pedidoId);
          Pedido AddPedido(Pedido pedido);
-         Pedido UpdatePedido(Pedido pedido);
-         void DeletePedido(int idPedido);         
+         Pedido UpdateEstadoPedido(int idPedido,int idEstado);
     }
 }
