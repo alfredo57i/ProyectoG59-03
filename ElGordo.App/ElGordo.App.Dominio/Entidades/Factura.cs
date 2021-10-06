@@ -10,6 +10,5 @@ namespace ElGordo.App.Dominio
         public DateTime Fecha{get;set;}
         public EstadoFactura Estado{get;set;}
         public List<Detalle> Detalles{get;set;}
-        
     }
 }

@@ -84,7 +84,7 @@ namespace ElGordo.App.Persistencia
                 productoActualizar.Imagen=producto.Imagen;
                 productoActualizar.Descripcion=producto.Descripcion;
                 _appContext.SaveChanges();
-            } 
+            }
             return productoActualizar;
         }
     }

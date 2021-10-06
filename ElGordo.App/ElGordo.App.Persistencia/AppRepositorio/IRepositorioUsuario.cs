@@ -7,7 +7,7 @@ namespace ElGordo.App.Persistencia
     {
         IEnumerable<EstadoProducto> GetAll();
         Usuario GetUsuario(int idUsuario);
-        Usuario Login(string usuario, string password);        
+        Usuario Login(string usuario, string password);
         Usuario AddUsuario(Usuario user);
         Usuario UpdateUsuario(Usuario user);
         void DeleteUsuario(int user);
