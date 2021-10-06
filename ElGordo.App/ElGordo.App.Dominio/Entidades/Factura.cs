@@ -7,8 +7,8 @@ namespace ElGordo.App.Dominio
     {
         public int Id{get;set;}
         public int Numero{get;set;}
-        public DateTime Fecha{get;set;}
         public EstadoFactura Estado{get;set;}
-        public List<Detalle> Detalles{get;set;}
+        public DateTime Fecha{get;set;}
+        public List<Detalle> Detalles { get; set; }
     }
 }
