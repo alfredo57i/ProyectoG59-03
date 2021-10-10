@@ -1,19 +1,115 @@
 ﻿@page
+@using System.Globalization
 @model IndexModel
-@{
-    ViewData["Title"] = "Home page";
-}
 
-<div class="text-center">
-    <div class="col-4 border p-3 shadow">
-        <h5 class="text-primary">Producto</h5>
-        <img src="~/img/ensalada.jpg" alt="" class="col-12 p-0 rounded-circle">
-        <p class="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, maxime.</p>
-        <p>$ 5000</p>
-        <input type="text" class="form-control col-6">
-        <div class="d-flex justify-content-between">
-            <button class="btn btn-primary">Comprar</button>
-            <button class="btn btn-primary">Comprar</button>
+@{
+    ViewData["Title"] = "Inicio";
+}
+<p id="algo"></p>
+@* @Html.Raw(@ViewData["JsonCarrito"]) *@
+<section class="row d-flex justify-content-center p-5 p-sm-2">
+    @foreach (var producto in Model.Productos)
+    {
+        <article class="shadow col-xs-8 col-md-4 col-lg-3 col-sm-8 border rounded p-3 m-2 text-center">
+            <h5 class="text-md-small">@producto.Nombre</h5>
+            <img src="~/img/@producto.Imagen" alt="" class="img-thumbnail img-fluid">
+            <p class="m-1 text-small">@producto.Descripcion</p>
+            <p class="m-1 text-small">$ @producto.Precio.ToString("0,0",new CultureInfo("es-AR"))</p>
+            <div class="row justify-content-center">
+                <input type="number" id="@producto.Id" onkeypress="return validaNumero(event)" name="cantidad" min="1"
+                max="50" class="form-control col-3" value="1">
+                <button type="submit" id="carga" class="btn btn-primary ml-2"
+                onclick="MostrarLista();AgregarItem(@producto.Id);aja();">Agregar</button>
+            </div>
+        </article>
+    }
+</section>
+
+<div class="fixed-bottom col-lg-3 col-md-4 col-sm-7 col-xs-7 ml-auto mb-5 row" id="ticket"
+    style="max-width: 300px;display:none;bottom:250px;">
+    <div class="fixed-top position-absolute" id="closeTicket" onclick="OcultarLista();">
+        <div class="badge badge-danger rounded-circle text-wrap p-2 h5">
+            <i class="fa fa-times" aria-hidden="true"></i>
         </div>
     </div>
+    <div class="paper shadow col p-3">
+        <div class="mb-3 pl-3">
+            <div class="p-2">
+                <h5 class="row mb">Lista del Pedido</h5>
+                <div class="mt-3">
+                    <ul class="list-unstyled row p-1" id="listaPedido">
+                    </ul>
+                </div>
+                <h5 class="row">Total: $<span id="totalPedido">0</span></h5>
+            </div>
+        </div>
+        @* <a class="btn btn-warning" href="/Pedido/CompletarPedido">Realizar Pedido</a> *@
+        <form method="POST" asp-page="/Pedido/CompletarPedido">
+            <input type="hidden" id="carritoEnviar" name="carrito">
+            <button type="submit" class="btn btn-warning" onclick="aja();">Realizar Pedido</button>
+        </form>
+    </div>
 </div>
+<div class="fixed-bottom ml-auto justify-content-end p-3" id="cart" style="max-width: 90px;display:block;bottom:300px;"
+    onclick="MostrarLista();">
+    <span class="badge badge-pill badge-danger position-absolute p-2" id="cantCarrito"></span>
+    <div class="rounded-circle badge badge-primary p-3" id="openTicket">
+        <i class="fas fa-shopping-cart h5 m-1" aria-hidden="true"></i>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+    @* var json = @Html.Raw(Json.Serialize(@Model.suma)); *@  
+    var listaProductos = @Html.Raw(Json.Serialize(@Model.Productos));
+    var listaCarrito = @Html.Raw(@ViewData["JsonCarrito"]);
+    function aja() {
+        var url = '@Url.Page("/Index")?handler=Guarda';
+        var data = {};
+        $.post(url, $('form').serialize(), function (result) {//'form' es el formulario a enviar
+            console.log('Guardado Post ' + result);
+        });
+    @* $.post(url, $('form').serialize() ); *@
+    }
+
+    //Funcion para Agregar item al carrito de compras
+    function AgregarItem(idSelect) {
+        cantidad = parseInt($('#' + idSelect).val()); //Obtiene la cantidad de elementos seleccionados.
+        let producto = listaProductos.find(i => i.id === idSelect);
+        let existe = listaCarrito.find(i => i.id === idSelect);
+        if (existe) {
+            existe.cantidad += cantidad;//Si ya se había agregado el elemento, se suma la nueva cantidad
+        } else {
+            listaCarrito.push({ id: idSelect, item: producto.nombre, precio: producto.precio, cantidad: cantidad });//Agrega el item seleccionados al carrito
+        }
+        $('#' + idSelect).val(1);
+        llenaLista();
+    }
+
+    //Llena la lista del carrito de compras
+    function llenaLista() {
+        $('#listaPedido').empty();//Limpia los elementos de la lista del carrito
+        let total = 0;
+        listaCarrito.forEach(e => {//Por cada elementos en la lista carrito
+            $('#listaPedido').append('<li class="mb-2"><a class="badge badge-warning mr-2" href="#" onclick="eliminarItem(' + e.id + ');aja();">&times;</a>' + e.item + " X " + e.cantidad + '</li>')
+            total += e.precio * e.cantidad;//Obtiene el total del pedido
+            $("#totalPedido").text(moneda(total));
+        });
+        $("#cantCarrito").text(listaCarrito.length === 0 ? "" : listaCarrito.length);
+        $('#carritoEnviar').val(JSON.stringify(listaCarrito));
+    }
+
+    function eliminarItem(id) {        
+        console.log(id + " Eliminado");
+        for (var i = 0; i < listaCarrito.length; i++) {
+            if (listaCarrito[i].id == id) {
+                listaCarrito.splice(i, 1);
+                break;
+            }
+        }
+        if(listaCarrito.length==0){$("#totalPedido").text(moneda(0));}
+        llenaLista();
+    }
+    llenaLista();
+</script>
+}

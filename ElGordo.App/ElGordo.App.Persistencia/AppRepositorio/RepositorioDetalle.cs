@@ -21,7 +21,7 @@ namespace ElGordo.App.Persistencia
         }
         Detalle IRepositorioDetalle.GetDetalle(int idFactura)
         {
-            return _appContext.Detalle.AsNoTracking().Include(p => p.Id).SingleOrDefault(p => p.Id == idFactura);
+            return _appContext.Detalle.SingleOrDefault(p => p.Id == idFactura);
         }
 
         

@@ -7,7 +7,7 @@ namespace ElGordo.App.Persistencia
     {
          IEnumerable<Pedido> GetAll();
          IEnumerable<Pedido> GetPedidoPorEstado(int filtro);
-         IEnumerable<Pedido> GetPorCodigo(string codigo);
+         Pedido GetPorCodigo(string codigo);
          Pedido GetPedido(int pedidoId);
          Pedido AddPedido(Pedido pedido);
          Pedido UpdateEstadoPedido(int idPedido,int idEstado);

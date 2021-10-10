@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ElGordo.App.Persistencia;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -23,7 +24,19 @@ namespace ElGordo.App.Frontend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //<======= Codigo para manejar la autenticación de usuario ==>
+            services.AddAuthentication("CookieAdmin").AddCookie("CookieAdmin", options =>
+             {
+                 options.Cookie.Name = "CookieAdmin";//Nombre de la Cookie
+                 options.LoginPath = "/Admin/Login";//Dirección a la que se redirige si no está logeado
+             });
+            //<====== Lineas para habilitar sesiones =====>
+            services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
+            services.AddMemoryCache();
+            //<===========================================>
+
             services.AddRazorPages();
+            //services.AddSingleton<IRepositorioProductos,RepositorioProductos>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,13 +57,14 @@ namespace ElGordo.App.Frontend
             app.UseStaticFiles();
 
             app.UseRouting();
+            //<==================>
+            app.UseSession();
+            //<==================>
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapRazorPages();
-            });
+            app.UseEndpoints(endpoints => endpoints.MapRazorPages());
         }
     }
 }

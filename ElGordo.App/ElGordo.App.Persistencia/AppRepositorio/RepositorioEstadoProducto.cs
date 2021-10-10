@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ElGordo.App.Dominio;
+using Microsoft.EntityFrameworkCore;
 
 namespace ElGordo.App.Persistencia
 {
@@ -33,6 +34,7 @@ namespace ElGordo.App.Persistencia
 
         public EstadoProducto GetEstadoProducto(int idEstado)
         {
+            //_appContext.ChangeTracker.AutoDetectChangesEnabled = true;
             return _appContext.EstadoProducto.SingleOrDefault(e => e.Id == idEstado);
         }
 
