@@ -1,0 +1,81 @@
+﻿@page
+@model ElGrodo.App.Frontend.Pages.CompletarPedidoModel
+@{
+    ViewData["Title"] = "Detalles De Envío";
+}
+@* @Html.Raw(@ViewData["JsonCarrito"]) *@
+<div class="d-flex justify-content-center">
+    <div class="text-center border rounded shadow col-lg-4 col-md-6 col-sm-8 col-xs-10 m-4 p-4"
+        style="min-width:350px;">
+        <h4 class="mb-4 text-primary">Datos de Envío</h4>
+        <form class="mb-0 mx-4" method="POST" asp-page-handler="HacerPedido">
+            <p id="af"></p>
+            <input type="hidden" asp-for="Pedido.Id" />
+            <input type="hidden" asp-for="Pedido.Codigo" />
+            <div class="form-group">
+                <input asp-for="Pedido.Cliente" class="form-control" placeholder="Nombre">
+                <span asp-validation-for="Pedido.Cliente" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <!--Boton que llama el mapa-->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg"
+                    onclick="cambiaCoordenadas();">Agregar Ubicación</button>
+            </div>
+            <div class="form-group">
+                <input asp-for="Pedido.LatitudEntrega" class="form-control form-control-sm" id="latitudForm"
+                    placeholder="Latitud" value="">
+                <span asp-validation-for="Pedido.LatitudEntrega" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Pedido.LongitudEntrega" class="form-control form-control-sm" id="longitudForm"
+                    placeholder="Longitud" value="">
+                <span asp-validation-for="Pedido.LongitudEntrega" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <textarea asp-for="Pedido.Notas" class="form-control form-control-sm" style="min-height: 80px;"
+                    placeholder="Espeficiar dirección, modificaciones de pedido, notas adicionales..."></textarea>
+                <span asp-validation-for="Pedido.Notas" class="text-danger"></span>
+            </div>
+            <div class="justity-content-center">
+                <ul class="list-group small" id="listaPagar">
+                    <li class="list-group-item list-group-item-primary font-weight-bold p-1">Pedido</li>
+
+                </ul>
+            </div>
+            <button type="submit" class="btn btn-primary mt-4">Pagar</button>
+        </form>
+
+        @* <form action="" class="mb-0 mx-4">
+
+
+            <a title="Ver detalles" class="btn btn-primary mt-4" href="/Pedido/Pago">Pagar</a>
+            </form> *@
+
+    </div>
+</div>
+<partial name="_MapaDefinirUbicacion" />
+<!--Agrega el modal del mapa-->
+
+@section Scripts {
+<script type="text/javascript">
+    listaCancelar = @Html.Raw(@ViewData["JsonCarrito"]);
+    let total = 0;
+    listaCancelar.forEach(e => {
+        $('#listaPagar').append('<li class="list-group-item list-group-item-primary p-1">' + e.item + ' x ' + e.cantidad + '</li>');
+        total += e.precio * e.cantidad;
+    });
+    $('#listaPagar').append('<li class="list-group-item list-group-item-primary font-weight-bold p-1">Total: $' + moneda(total) + '</li>');
+
+    //Funcion que genera el codigo aleatorio
+    function codigoAleatorio() {
+        let codigo = '';
+        const lista = '0123456789abcdefghijklmnopqrstuvwxyz0123456789';
+        const listaTam = lista.length;
+        for (let i = 0; i < 8; i++) {
+            codigo += lista.charAt(Math.floor(Math.random() * listaTam));
+        }
+        return codigo;
+    }
+    $('#Pedido_Codigo').val(codigoAleatorio());
+</script>
+}

@@ -1,0 +1,33 @@
+﻿@page
+@using System.Globalization
+@model ElGrodo.App.Frontend.Pages.PagoModel
+@{
+    ViewData["Title"] = "Pedido";
+}
+@* <p>@Html.Raw(@ViewData["JsonPedido"]);</p>
+<p>@Html.Raw(@ViewData["JsonCarrito"]);</p> *@
+<div class="d-flex justify-content-center">
+    <div class="text-center border rounded shadow col-lg-4 col-md-6 col-sm-8 col-xs-10 m-4 p-4">
+        <div class="d-flex justify-content-center">
+            <div class="alert alert-success col-8" role="alert">
+                <p class="alert-heading font-weight-bold">Pago Aprobado</p>
+                <i class="fas fa-check h5"></i>
+            </div>
+        </div>        
+        <div class="justity-content-center m-4">
+            <ul class="list-group small">
+                <li class="list-group-item font-weight-bold p-1">@Model.Pedido.Cliente</li>
+                <li class="list-group-item p-1">Fecha: @Model.Pedido.Fecha_pedido</li>
+                <li class="list-group-item p-1">Código de Transacción: 453123572654</li>
+                <li class="list-group-item font-weight-bold p-1">Total: $@Model.Total.ToString("0,0",new CultureInfo("es-AR"))</li>
+            </ul>
+        </div>
+        <div class="m-4">
+            <div class="alert alert-primary" role="alert">
+                <p class="font-weight-bold">Código de seguimiento</p>
+                <p class="h3 font-weight-normal">@Model.Pedido.Codigo</p>
+            </div>
+        </div>
+        <a title="Ver detalles" class="btn btn-success" asp-page="./Index/" asp-route-codigo="@Model.Pedido.Codigo">Ver Pedido</a>
+    </div>
+</div>

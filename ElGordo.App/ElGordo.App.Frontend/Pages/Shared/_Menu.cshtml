@@ -1,0 +1,55 @@
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="navbar-collapse collapse d-md-inline-flex flex-md-row-reverse">
+        <ul class="navbar-nav flex-grow-1">
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Index" data-toggle="tooltip"
+                title="Listado de Pedidos">
+                    Pedidos
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/ListaProductos" data-toggle="tooltip"
+                title="Administrar Productos">
+                    Productos
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Informes" data-toggle="tooltip"
+                title="Informes de ventas">
+                    Informes
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Config" data-toggle="tooltip" title="Configuración">
+            <i class="fa fa-cog h5 m-0"></i>
+        </a>
+        <a class="nav-link text-dark pr-0" asp-area="" asp-page="/Admin/Logout" data-toggle="tooltip" title="Salir">
+            <i class="fa fa-power-off  h5 m-0"></i>
+        </a>
+        @* <form class="form-inline my-2 my-lg-0 justify-content-end" method="POST" asp-page="/Admin/Logout">
+            <button type="submit" class="btn btn-outline-primary ml-2">Salir</button>
+            </form> *@
+    </div>
+}
+else
+{
+    <div class="navbar-collapse collapse d-md-inline-flex flex-md-row-reverse">
+        <ul class="navbar-nav flex-grow-1">
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-page="/Nosotros">Nosotros</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-page="/Politicas">Políticas</a>
+            </li>
+        </ul>
+    </div>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+        <form class="form-inline my-2 my-lg-0 justify-content-end" asp-page="/Pedido/Index" method="GET">
+            <input class="form-control mr-sm-2 col-sm-5" type="search" placeholder="Código" name="codigo">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Rastrear</button>
+        </form>
+    </div>
+}

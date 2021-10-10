@@ -15,26 +15,26 @@ namespace ElGordo.App.Persistencia
         
         Factura IRepositorioFactura.AddFactura(Factura factura)
         {
-            var nuevoFactura = _appContext.Factura.Add(factura);
+            var nuevaFactura = _appContext.Factura.Add(factura);
             _appContext.SaveChanges();
-            return nuevoFactura.Entity;
+            return nuevaFactura.Entity;
         }
 
         IEnumerable<Factura> IRepositorioFactura.GetAllFacturas()
         {
-            return _appContext.Factura.Include(p => p.Id).Include(p => p.Numero).Include(p => p.Fecha).Include(p => p.Estado).Include(p => p.Detalles).AsNoTracking();
+            return _appContext.Factura.Include(f=>f.Detalles).AsNoTracking();
         }
 
         Factura IRepositorioFactura.GetFactura(int idFactura)
         {
-            return _appContext.Factura.AsNoTracking().Include(p => p.Numero).SingleOrDefault(p => p.Id == idFactura);
+            return _appContext.Factura.Include(f=>f.Detalles).SingleOrDefault(p => p.Id == idFactura);
         }
 
         Factura IRepositorioFactura.UpdateEstadoFactura(int idFactura, int estado)
         {
             var facturaEstadoActualizar = _appContext.Factura.FirstOrDefault(p => p.Id == idFactura);
             if (facturaEstadoActualizar == null) return null;
-            facturaEstadoActualizar.Estado = _appContext.EstadoFactura.FirstOrDefault(p => p.Id == estado);
+            facturaEstadoActualizar.Estado = estado;
             _appContext.SaveChanges();
             return facturaEstadoActualizar;
         }

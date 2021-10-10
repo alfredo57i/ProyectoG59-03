@@ -16,7 +16,7 @@ namespace ElGordo.App.Persistencia
 
         public Producto AddProducto(Producto producto)
         {
-            var nuevoProducto = _appContext.Producto.Add(producto);
+            var nuevoProducto = _appContext.Producto.Add(producto);            
             _appContext.SaveChanges();
             return nuevoProducto.Entity;
         }
@@ -26,7 +26,7 @@ namespace ElGordo.App.Persistencia
             var productoActualizar = _appContext.Producto.FirstOrDefault(p=>p.Id==productoId);
             if(productoActualizar!=null)
             {
-                productoActualizar.Estado=_appContext.EstadoProducto.FirstOrDefault(ep=>ep.Id==nuevoEstado);
+                productoActualizar.Estado=nuevoEstado;
                 _appContext.SaveChanges();
             } 
             return productoActualizar;
@@ -42,7 +42,7 @@ namespace ElGordo.App.Persistencia
 
         public IEnumerable<Producto> GetAll()
         {
-            return _appContext.Producto.Include(p=>p.Estado).AsNoTracking();
+            return _appContext.Producto.AsNoTracking();
         }
 
         public IEnumerable<Producto> GetDisponibles(int filtro)
@@ -50,7 +50,7 @@ namespace ElGordo.App.Persistencia
             var productosFind = GetAll();
             if (productosFind != null)
             {
-                productosFind = productosFind.Where(pf => pf.Estado.Id == filtro);
+                productosFind = productosFind.Where(pf => pf.Estado == filtro);
             }
             return productosFind;
         }
@@ -70,7 +70,7 @@ namespace ElGordo.App.Persistencia
 
         public Producto GetProducto(int productoId)
         {           
-            return _appContext.Producto.AsNoTracking().Include(p=>p.Estado).SingleOrDefault(p => p.Id == productoId);
+            return _appContext.Producto.AsNoTracking().SingleOrDefault(p => p.Id == productoId);
         }
 
         public Producto UpdateProducto(Producto producto)

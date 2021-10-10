@@ -1,0 +1,24 @@
+.paper {
+  font-family: "Caveat", cursive;
+  --paper-dark: #fae73f;
+  --paper-color: #fdee66;  
+  min-height: 200px;
+  max-width: 300px;
+  background: linear-gradient(
+    135deg,
+    var(--paper-dark),
+    30%,
+    var(--paper-color)
+  );
+  transform: rotate(-5deg);
+  }
+
+.btnClose{
+    position: absolute;
+  top: 0px;
+  right: -20px;
+}
+
+
+
+  

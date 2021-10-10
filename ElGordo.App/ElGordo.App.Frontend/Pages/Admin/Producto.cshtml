@@ -1,0 +1,102 @@
+﻿@page
+@using System.Text.Json;
+@model ElGrodo.Frontend.Pages.ProductoModel
+@{
+    ViewData["Title"] = "Editar Producto";
+    string productoActual = JsonSerializer.Serialize(Model.Producto);
+}
+<div class="row d-flex justify-content-center">
+    <div class="col-6">
+        @Html.Raw(@ViewData["Respuesta"])
+    </div>
+</div>
+<div class="row">
+    <form class="col-md-5 col-sm-10 m-sm-auto" method="POST">
+        <p id="af"></p>
+        <input type="hidden" asp-for="Producto.Id" />
+        <div class="form-group">
+            <label asp-for="Producto.Nombre"></label>
+            <input asp-for="Producto.Nombre" class="form-control">
+            <span asp-validation-for="Producto.Nombre" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Producto.Estado"></label>
+            <input type="hidden" asp-for="Producto.Estado" />
+            <select class="form-control" name="estado" id="selectEstado">
+                @foreach (var item in Model.estadosProducto)
+                {
+                    <option value="@item.Id">@item.Nombre</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label asp-for="Producto.Imagen"></label>
+            <input asp-for="Producto.Imagen" class="form-control">
+            <span asp-validation-for="Producto.Imagen" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Producto.Descripcion"></label>
+            <textarea asp-for="Producto.Descripcion" class="form-control"></textarea>
+            <span asp-validation-for="Producto.Descripcion" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Producto.Precio"></label>
+            <input type="Number" asp-for="Producto.Precio" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+
+    <div class="col col-xs-8 col-md-4 col-lg-4 col-sm-8 ml-5 text-center m-sm-auto">
+        <h5 class="m-3 text-secondary">Vista Previa</h5>
+        <article class="shadow  border rounded p-3 text-center" heght="350px">
+            <h5 class="text-md-small" id="nombreProdcuto">@Model.Producto.Nombre</h5>
+            <img src="~/img/@Model.Producto.Imagen" alt="" class="img-thumbnail img-fluid" id="imagenProducto">
+            <p class="m-1" id="productoDescripcion">@Model.Producto.Descripcion</p>
+            <p class="m-1" id="productoPrecio">$ @Model.Producto.Precio</p>
+            <div class="row justify-content-center">
+                <input type="number" id="tentacles" onkeypress="return validaNumero(event)" name="cantidad" min="1"
+                    max="100" class="form-control col-3" value="1">
+                <button type="button" class="btn btn-primary ml-2" onclick="x();">Agregar</button>
+            </div>
+        </article>
+    </div>
+</div>
+<div class="row m-5">
+    <div class="col">
+        <a asp-page="./ListaProductos" class="btn btn-outline-primary">Regresar a Lista de Productos</a>
+    </div>
+</div>
+
+<script>
+    function x() {
+        document.getElementById('af').innerHTML = '@productoActual';
+    }
+    //Selecciona el item de la lista "Estados" que le pertenece al objeto
+    function cargaSelect() {
+        document.getElementById("selectEstado").value = @Model.Producto.Estado;
+    }
+</script>
+
+@section Scripts {
+<script>
+    $(document).ready(function (e) {
+        //Modifica el nombre (Vista Previa) mientras se escribe
+        $("#Producto_Nombre").on('input', function() {
+            $("#nombreProdcuto").text($(this).val());
+        });
+        //Modifica la imagen (Vista Previa) mientras se escribe
+        $("#Producto_Imagen").on('input', function() {
+            $("#imagenProducto").attr("src","/img/"+$(this).val());
+        });
+        //Modifica la descripcion (Vista Previa) mientras se escribe
+        $("#Producto_Descripcion").on('input', function() {
+            $("#productoDescripcion").text($(this).val());
+        });
+        //Modifica el precio (Vista Previa) mientras se escribe
+        $("#Producto_Precio").on('input', function() {
+            $("#productoPrecio").text("$"+moneda($(this).val()));
+        });
+    });
+
+</script>
+}

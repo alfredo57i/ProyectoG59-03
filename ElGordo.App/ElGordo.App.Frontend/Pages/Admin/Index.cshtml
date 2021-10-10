@@ -1,0 +1,215 @@
+﻿@page
+@using System.Globalization
+@model ElGrodo.App.Frontend.Pages.IndexAdminModel
+@{
+    ViewData["Title"] = "Pedidos";
+    var total =0.0;
+}
+<div class="row">
+    <div class="col-5">
+        <div class="row">
+            <div class="col-5 pr-0">
+                <form class="mb-4" method="post" asp-page-handler="CambiaLista">
+                    <input type="hidden" name="cambia" value="preparacion">
+                    <select class="form-control" name="listaEstado" id="selectlista" onchange="this.form.submit()">
+                        <option value="0">Todos</option>
+                        @foreach (var item in Model.EstadoPedidos)
+                        {
+                            <option value="@item.Id">@item.Nombre</option>
+                        }
+                    </select>
+                </form>
+            </div>
+            <div class="col-7 pl-0">
+                @* <form class="form-inline justify-content-end" asp-page-handler="Busca">
+                    <input class="form-control mr-sm-2 col-sm-7" type="search" placeholder="Código" name="codigo">
+                    <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Buscar</button>
+                </form> *@
+            </div>
+        </div>
+
+        <!-- Tabla que muestra la lista de pedidos enocontrados en la base de datos -->
+        <div id="accordion">
+            @foreach (var pedido in Model.Pedidos)
+            {
+                total =0;
+                var idDiv = "div" + pedido.Id;
+                @switch (pedido.Estado)
+                {
+                    case 1:
+                        <div class="card">
+                            <div class="card-header p-0" id="headingOne">
+                                <a class="collapsed text-decoration-none d-flex justify-content-between" href="#"
+                        data-toggle="collapse" data-target="#@idDiv">
+                                    <span class="p-2 text-dark">@pedido.Fecha_pedido.ToString("h:mm tt")</span>
+                                    <span class="py-2 text-dark">@pedido.Cliente</span>
+                                    <div class="p-2 small"><strong class="text-danger">Realizado</strong></div>                                    
+                                </a>
+                            </div>
+                            <div id="@idDiv" class="collapse" data-parent="#accordion">
+                                <div class="card-body">
+                                    <ul class="list-group">
+                                        @foreach (var item in @Model._repoFactura.GetFactura(pedido.Factura).Detalles)
+                                        {
+                                            var producto = @Model._repoProducto.GetProducto(item.Producto);
+                                            <li class="list-group-item p-1 d-flex justify-content-between"><span>@producto.Nombre x @item.Cantidad</span><span>$@((item.Cantidad*item.Precio).ToString("0,0",new CultureInfo("es-AR")))</span></li>
+                                            total += item.Cantidad*item.Precio;
+                                        }
+                                        <li class="list-group-item font-weight-bold p-1 d-flex justify-content-end">Total: $@total.ToString("0,0",new CultureInfo("es-AR"))</li>
+                                        <li class='list-group-item font-weight-bold p-1 text-success'>Notas: @pedido.Notas</li>
+                                        <li class="list-group-item font-weight-bold p-1 small">Codigo: @pedido.Codigo</li>                                        
+                                    </ul>
+                                    <div class="d-flex justify-content-between">
+                                        @* <form class="form-inline col px-0" method="POST"> *@
+                                            <button class="btn btn-secondary mt-3">Imprimir Orden</button>
+                                        @* </form> *@
+                                        <form class="form-inline justify-content-end col px-0" method="POST">
+                                            <input type="hidden" name="listaestado" value="@Html.Raw(@ViewData["listar"])">
+                                            <input type="hidden" name="idpedido" value="@pedido.Id">
+                                            <button class="btn btn-warning form-group mt-4" type="submit" asp-page-handler="CambiaEstado">Pasar a
+                                                Preparación</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        break;
+                    case 2:
+                        <div class="card">
+                            <div class="card-header p-0" id="headingOnee">
+                                <a class="collapsed text-decoration-none d-flex justify-content-between" href="#"
+                        data-toggle="collapse" data-target="#@idDiv" aria-expanded="true" aria-controls="collapseOnee">
+                                    <span class="p-2 text-dark">@pedido.Fecha_pedido.ToString("h:mm tt")</span>
+                                    <span class="py-2 text-dark">@pedido.Cliente</span>
+                                    <div class="p-2 small"><strong class="text-warning">Preparación</strong></div>
+                                </a>
+                            </div>
+                            <div id="@idDiv" class="collapse" aria-labelledby="headingOnee" data-parent="#accordion">
+                                <div class="card-body">
+                                    <ul class="list-group">
+                                        @foreach (var item in @Model._repoFactura.GetFactura(pedido.Factura).Detalles)
+                                        {
+                                            var producto = @Model._repoProducto.GetProducto(item.Producto);
+                                            <li class="list-group-item p-1 d-flex justify-content-between"><span>@producto.Nombre x @item.Cantidad</span><span>$@((item.Cantidad*item.Precio).ToString("0,0",new CultureInfo("es-AR")))</span></li>
+                                            total += item.Cantidad*item.Precio;
+                                        }
+                                        <li class="list-group-item font-weight-bold p-1 d-flex justify-content-end">Total: $@total.ToString("0,0",new CultureInfo("es-AR"))</li>
+                                        <li class='list-group-item font-weight-bold p-1 text-success'>Notas: @pedido.Notas</li>
+                                        <li class="list-group-item font-weight-bold p-1 small">Codigo: @pedido.Codigo</li>
+                                    </ul>
+                                    <div class="d-flex justify-content-end">
+                                        <form class="form-inline justify-content-end col px-0" method="POST">
+                                            <input type="hidden" name="listaestado" value="@Html.Raw(@ViewData["listar"])">
+                                            <input type="hidden" name="idpedido" value="@pedido.Id">
+                                            <button class="btn btn-primary form-group mt-4" type="submit" asp-page-handler="CambiaEstado">Enviar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        break;
+                    case 3:
+                        <div class="card">
+                            <div class="card-header p-0" id="headingOner">
+                                <a class="collapsed text-decoration-none d-flex justify-content-between" href="#"
+                        data-toggle="collapse" data-target="#@idDiv" aria-expanded="true" aria-controls="@idDiv">
+                                    <span class="p-2 text-dark">@pedido.Fecha_pedido.ToString("h:mm tt")</span>
+                                    <span class="py-2 text-dark">@pedido.Cliente</span>
+                                    <div class="p-2 small"><strong class="text-primary">Enviado</strong></div>
+                                </a>
+                            </div>
+                            <div id="@idDiv" class="collapse" aria-labelledby="headingOner" data-parent="#accordion">
+                                <div class="card-body">
+                                    <ul class="list-group">
+                                        @foreach (var item in @Model._repoFactura.GetFactura(pedido.Factura).Detalles)
+                                        {
+                                            var producto = @Model._repoProducto.GetProducto(item.Producto);
+                                            <li class="list-group-item p-1 d-flex justify-content-between"><span>@producto.Nombre x @item.Cantidad</span><span>$@((item.Cantidad*item.Precio).ToString("0,0",new CultureInfo("es-AR")))</span></li>
+                                            total += item.Cantidad*item.Precio;
+                                        }
+                                        <li class="list-group-item font-weight-bold p-1 d-flex justify-content-end">Total: $@total.ToString("0,0",new CultureInfo("es-AR"))</li>
+                                        <li class='list-group-item font-weight-bold p-1 text-success'>Notas: @pedido.Notas</li>
+                                        <li class="list-group-item font-weight-bold p-1 small">Codigo: @pedido.Codigo</li>
+                                    </ul>
+                                    <div class="d-flex justify-content-end">
+                                        <form class="form-inline justify-content-end col px-0" method="POST">
+                                            <input type="hidden" name="listaestado" value="@Html.Raw(@ViewData["listar"])">
+                                            <input type="hidden" name="idpedido" value="@pedido.Id">
+                                            <button class="btn btn-success form-group mt-4" type="submit" asp-page-handler="CambiaEstado">Entregado</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        break;
+                    default:
+                        <div class="card">
+                            <div class="card-header p-0" id="headingOner">
+                                <a class="collapsed text-decoration-none d-flex justify-content-between" href="#"
+                        data-toggle="collapse" data-target="#@idDiv" aria-expanded="true" aria-controls="@idDiv">
+                                    <span class="p-2 text-dark">@pedido.Fecha_pedido.ToString("h:mm tt")</span>
+                                    <span class="py-2 text-dark">@pedido.Cliente</span>
+                                    <div class="p-2 small"><strong class="text-success">Entregado</strong></div>                                    
+                                </a>
+                            </div>
+                            <div id="@idDiv" class="collapse" aria-labelledby="headingOner" data-parent="#accordion">
+                                <div class="card-body">
+                                    <ul class="list-group">
+                                        @foreach (var item in @Model._repoFactura.GetFactura(pedido.Factura).Detalles)
+                                        {
+                                            var producto = @Model._repoProducto.GetProducto(item.Producto);
+                                            <li class="list-group-item p-1 d-flex justify-content-between"><span>@producto.Nombre x @item.Cantidad</span><span>$@((item.Cantidad*item.Precio).ToString("0,0",new CultureInfo("es-AR")))</span></li>
+                                            total += item.Cantidad*item.Precio;
+                                        }
+                                        <li class="list-group-item font-weight-bold p-1 d-flex justify-content-end">Total: $@total.ToString("0,0",new CultureInfo("es-AR"))</li>
+                                        <li class='list-group-item font-weight-bold p-1 text-success'>Notas: @pedido.Notas</li>
+                                        <li class="list-group-item font-weight-bold p-1 small">Codigo: @pedido.Codigo</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        break;
+                }
+
+            }
+
+
+
+        </div>
+        <!-- Fin lista pedidos -->
+    </div>
+    <div class="col-7">
+        <div id="map" style="min-height: 600px;resize: both;" class=""></div>
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtbBQFARnVwieOQDfyR2vDN8B1xdXWBfk&callback=initMap&libraries=&v=weekly"
+            async></script>
+        <script>
+            function initMap() {
+                var options = {
+                    zoom: 6, map, center: { lat: 4.570868, lng: -74.297333 }
+                }
+                var map = new google.maps.Map(document.getElementById('map'), options);
+                var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png';
+                var markers = [@Html.Raw(@ViewData["marcadores"])];
+                for (var i = 0; i < markers.length; i++) {
+                    addMarker(markers[i]);
+                }
+                function addMarker(info) {
+                    var marker = new google.maps.Marker({
+                        position: info.coords,
+                        map: map,
+                    });
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: info.con,
+                    });
+                    marker.addListener("click", () => {
+                        infoWindow.open(map, marker);
+                    });
+                }
+            }
+            
+            document.getElementById("selectlista").value = @Html.Raw(@ViewData["listar"]);
+            
+        </script>
+    </div>
+</div>

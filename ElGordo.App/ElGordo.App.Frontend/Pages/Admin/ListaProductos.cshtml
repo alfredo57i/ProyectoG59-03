@@ -1,0 +1,57 @@
+﻿@page
+@model ElGrodo.App.Frontend.Pages.ListaProductosModel
+@{
+    ViewData["Title"] = "Productos";
+}
+<h4 class="mb-4">Lista de productos</h4>
+@* @Html.Raw(@ViewData["Respuesta"])  *@
+<a asp-page="./Producto" class="btn btn-primary mb-3">Nuevo Producto</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Imagen</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Producto in Model.Productos)
+        {
+            <tr>
+                <th scope="row">@Producto.Id</th>
+                <td>@Producto.Nombre</td>
+                <td>
+                    <img src="~/img/@Producto.Imagen" alt="" class="img-thumbnail img-fluid" width="100px"
+                    max-height="150px" ;>
+                </td>
+                <td>$ @Producto.Precio</td>
+                <td>
+                    <form method="POST" id="@Producto.Id" class="form-inline">
+                        <a title="Editar" class="btn btn-success mr-2" asp-page="./Producto"
+                        asp-route-ProductoId="@Producto.Id">
+                            <i class="fas fa-edit" aria-hidden="true"></i>
+                        </a>
+                        <input type="hidden" value="@Producto.Id" name="productoId" >
+                        <input type="hidden" value="@Producto.Estado" name="estadoId">                    
+                    @{
+                        if (Producto.Estado == 1)
+                        {
+                            @* <a title="Ocultar" class="btn btn-danger" href="./mapa"><i class="fas fa-eye"></i></a> *@
+
+                            <a href="javascript:$('#@Producto.Id').submit();" title="Ocultar" class="btn btn-primary"><i
+                            class="fas fa-eye"></i></a>
+                        }
+                        else if (Producto.Estado == 2)
+                        {
+                            <a href="javascript:$('#@Producto.Id').submit();" title="Mostrar" class="btn btn-danger"><i
+                            class="fas fa-eye"></i></a>
+                        }
+                    }
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

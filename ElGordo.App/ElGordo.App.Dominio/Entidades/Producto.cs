@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ElGordo.App.Dominio
 {
@@ -6,8 +7,8 @@ namespace ElGordo.App.Dominio
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "No es un nombre válido"), StringLength(50)]
-        public string Nombre { get; set; }
-        public EstadoProducto Estado { get; set; }
+        public string Nombre { get; set; }    
+        public int Estado { get; set; }
         public float Precio { get; set; }
         [Required(ErrorMessage = "Debe seleccionar una imagen")]
         public string Imagen { get; set; }

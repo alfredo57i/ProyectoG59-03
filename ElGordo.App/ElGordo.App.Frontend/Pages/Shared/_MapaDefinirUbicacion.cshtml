@@ -1,0 +1,76 @@
+<!-- Modal Mapa -->
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="modalMapa" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="mb-3">
+          <div class="form-inline d-flex justify-content-between">
+            <div class="form-inline">
+              <h6>Marca tu ubicación</h5>
+                @* <label class="control-label">Ubicación:</label>
+                  <input class="form-control form-control-sm ml-2" id="buscadorDirecciones"> *@
+            </div>
+            <div>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div id="map" style="height: 500px;" class=""></div>
+        <div class="mt-3">
+          <div class="form-inline d-flex justify-content-between">
+            <div class="form-inline">
+              <label class="control-label">Latitud:</label>
+              <input class="form-control form-control-sm ml-2" id="latitud">
+              <label class="control-label ml-3">Longitud:</label>
+              <input class="form-control form-control-sm ml-2" id="longitud">
+            </div>
+            <div>
+              <button type="button" class="btn btn-primary ml-4" data-dismiss="modal">Aceptar</button>
+              <!--data-dismiss para cerrar el modal-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtbBQFARnVwieOQDfyR2vDN8B1xdXWBfk&callback=initMap&libraries=&v=weekly"
+  async></script>
+
+<script>
+  latitud = 4.570868;
+  longitud = -74.297333;
+  function initMap() {
+    centro = { lat: latitud, lng: longitud }
+    generarMapa(centro);
+
+  }
+  function generarMapa(coordenadas) {
+    var mapa = new google.maps.Map(document.getElementById('map'),
+      {
+        zoom: 8,
+        center: new google.maps.LatLng(coordenadas.lat, coordenadas.lng)
+      });
+    posicion = new google.maps.Marker({
+      map: mapa,
+      draggable: true,
+      position: new google.maps.LatLng(coordenadas.lat, coordenadas.lng)
+    });
+
+    posicion.addListener('dragend', function (event) {
+      latitud = this.getPosition().lat();
+      longitud = this.getPosition().lng();
+      cambiaCoordenadas();
+    })
+  }
+  function cambiaCoordenadas() {
+    document.getElementById("latitud").value = latitud;
+    document.getElementById("latitudForm").value = latitud;
+    document.getElementById("longitud").value = longitud;
+    document.getElementById("longitudForm").value = longitud;
+  }
+</script>

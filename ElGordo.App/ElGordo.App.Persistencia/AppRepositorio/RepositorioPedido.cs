@@ -23,7 +23,7 @@ namespace ElGordo.App.Persistencia
 
         public IEnumerable<Pedido> GetAll()
         {
-            return _appContext.Pedido.Include(p => p.Factura).Include(p => p.Estado).Include(p => p.Cliente).AsNoTracking();
+            return _appContext.Pedido.OrderBy(p=>p.Estado);
         }
 
         public IEnumerable<Pedido> GetPedidoPorEstado(int filtro)
@@ -31,27 +31,19 @@ namespace ElGordo.App.Persistencia
             var pedidoFind = GetAll();
             if (pedidoFind != null)
             {
-                pedidoFind = pedidoFind.Where(p => p.Estado.Id == filtro);
+                pedidoFind = pedidoFind.Where(p => p.Estado == filtro);
             }
             return pedidoFind;
         }
 
         public Pedido GetPedido(int pedidoId)
         {
-            return _appContext.Pedido.AsNoTracking().Include(p => p.Estado).SingleOrDefault(p => p.Id == pedidoId);
+            return _appContext.Pedido.SingleOrDefault(p => p.Id == pedidoId);
         }
 
-        public IEnumerable<Pedido> GetPorCodigo(string codigo)
+        public Pedido GetPorCodigo(string codigo)
         {
-            var pedidoFind = GetAll();
-            if (pedidoFind != null)
-            {
-                if (!string.IsNullOrEmpty(codigo))//Si el la variable "filtro" contiene algun texto
-                {
-                    pedidoFind = pedidoFind.Where(p => p.Codigo == codigo);
-                }
-            }
-            return pedidoFind;
+            return _appContext.Pedido.SingleOrDefault(p => p.Codigo == codigo);
         }
 
         public Pedido UpdateEstadoPedido(int idPedido,int idEstado)
@@ -59,7 +51,7 @@ namespace ElGordo.App.Persistencia
             var pedidoActualizar = _appContext.Pedido.FirstOrDefault(p => p.Id == idPedido);
             if (pedidoActualizar != null)
             {
-                pedidoActualizar.Estado = _appContext.EstadoPedido.FirstOrDefault(e=>e.Id==idEstado);
+                pedidoActualizar.Estado = idEstado;
                 if(idEstado==2){
                     pedidoActualizar.Fecha_preparacion = DateTime.Now;
                 }

@@ -1,0 +1,151 @@
+﻿@page
+@using System.Globalization
+@model ElGrodo.App.Frontend.Pages.IndexPedidoModel
+@{
+    ViewData["Title"] = "Pedido";
+    var clock = "<i class='fas fa-clock text-success'></i>";
+    var formato = "h:mm tt";
+    var total = 0.0;
+}
+
+@if (Model.Pedido.Codigo == null)//Si no hay un código válido
+{
+    //Div que muestra el mensaje de error en caso de no encontrar un pedido
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-6">
+            @Html.Raw(@ViewData["Respuesta"])
+        </div>
+    </div>
+    //====================================================================
+    <div class="d-flex justify-content-center col">
+        <div class="text-center border rounded shadow col col-lg-4 col-md-6 col-sm-8 col-xs-10 m-4 p-4">
+            <h4 class="mb-4 text-primary">Buscar Pedido</h4>
+            <form class="form-inline my-lg-0 justify-content-center col" asp-page="/Pedido/Index" method="GET">
+                <input class="form-control form-group" type="search" placeholder="Código" name="codigo">
+                <button class="btn btn-primary form-group mt-4" type="submit">Rastrear</button>
+            </form>
+        </div>
+    </div>
+}
+@* Si el código existe en la base de datos *@
+else
+{
+    <div class="d-flex justify-content-center">
+        <div class="text-center border rounded shadow col-lg-4 col-md-6 col-sm-8 col-xs-10 m-4 p-4">
+            <h4 class="mb-4 text-success">Estado</h4>
+            <div class="d-flex justify-content-center">
+                <div class="alert alert-success col-6" role="alert">
+                    <span class="font-weight-bold">@Model.EstadoPedido.Nombre</span>
+                </div>
+            </div>
+            <p class="font-weight-bold">@Model.Pedido.Cliente</p>
+            <div class="justity-content-center m-4">
+                <ul class="list-group">
+                    <li class="list-group-item font-weight-bold p-1">Historia</li>
+                    <li class="list-group-item p-1">Realizado: @Model.Pedido.Fecha_pedido.ToString(formato)</li>
+                    <li class="list-group-item p-1">Preparación:
+                        @((Model.Pedido.Estado > 1
+                    )?Html.Raw(((DateTime)Model.Pedido.Fecha_preparacion).ToString(formato)):Html.Raw(clock))
+                    </li>
+                    <li class="list-group-item p-1">Envío:
+                        @((Model.Pedido.Estado > 2
+                    )?Html.Raw(((DateTime)Model.Pedido.Fecha_envio).ToString(formato)):Html.Raw(clock))
+                    </li>
+                    <li class="list-group-item p-1">Recibido:
+                        @((Model.Pedido.Estado > 3
+                    )?Html.Raw(((DateTime)Model.Pedido.Fecha_entrega).ToString(formato)):Html.Raw(clock))
+                    </li>
+                </ul>
+            </div>
+            <p class="small">Código: @Model.Pedido.Codigo</p>
+            <!--Boton que llama el modal de Detalle-->
+        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">Ver
+                Detalles</button>
+        </div>
+    </div>
+    <!-- Modal Detalles de la venta -->
+    <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="modalMapa" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="form-inline d-flex justify-content-end mb-3">
+                        <div>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 pr-0">
+                            <h4 class="mb-5 text-primary">@Model.Pedido.Cliente</h4>
+                            <table class="table">
+                                <thead>
+                                    <tr class="">
+                                        <th scope="col">Producto</th>
+                                        <th scope="col">Precio</th>
+                                        <th scope="col">Cant.</th>
+                                        <th scope="col">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in @Model.Factura.Detalles)
+                                    {
+                                        var producto = @Model._repoProducto.GetProducto(item.Producto);
+                                        total += item.Cantidad * item.Precio;
+                                        <tr>
+                                            <td>@producto.Nombre</td>
+                                            <td>$@item.Precio.ToString("0,0",new CultureInfo("es-AR"))</td>
+                                            <td>@item.Cantidad</td>
+                                            <td>$@((item.Cantidad*item.Precio).ToString("0,0",new CultureInfo("es-AR")))</td>
+                                        </tr>
+                                    }
+                                    <tr class="text-primary">
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col"><strong>Total:</strong></th>
+                                        <th scope="col">$@total.ToString("0,0",new CultureInfo("es-AR"))</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-secondary small">
+                                <strong>Notas:</strong>
+                                <p>@Model.Pedido.Notas</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 px-3">
+                            <div id="map" style="height: 500px;" class="border rounded"></div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="form-inline d-flex justify-content-end">
+                            <div>
+                                <button type="button" class="btn btn-primary ml-4" data-dismiss="modal">Aceptar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtbBQFARnVwieOQDfyR2vDN8B1xdXWBfk&callback=initMap&libraries=&v=weekly"
+    async></script>
+
+    <script>
+        function initMap() {
+            coordenadas = { lat: @Html.Raw(@ViewData["latitud"]), lng: @Html.Raw(@ViewData["longitud"]) }
+            generarMapa(coordenadas);
+        }
+        function generarMapa(coordenadas) {
+            var mapa = new google.maps.Map(document.getElementById('map'),
+                {
+                    zoom: 10,
+                    center: new google.maps.LatLng(coordenadas.lat, coordenadas.lng)
+                });
+            posicion = new google.maps.Marker({
+                map: mapa,
+                position: new google.maps.LatLng(coordenadas.lat, coordenadas.lng)
+            });
+        }
+    </script>
+}
