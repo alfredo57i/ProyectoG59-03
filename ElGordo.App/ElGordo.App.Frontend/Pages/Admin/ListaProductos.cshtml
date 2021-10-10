@@ -1,4 +1,5 @@
 ﻿@page
+@using System.Globalization
 @model ElGrodo.App.Frontend.Pages.ListaProductosModel
 @{
     ViewData["Title"] = "Productos";
@@ -26,7 +27,7 @@
                     <img src="~/img/@Producto.Imagen" alt="" class="img-thumbnail img-fluid" width="100px"
                     max-height="150px" ;>
                 </td>
-                <td>$ @Producto.Precio</td>
+                <td>$ @Producto.Precio.ToString("0,0",new CultureInfo("es-AR"))</td>
                 <td>
                     <form method="POST" id="@Producto.Id" class="form-inline">
                         <a title="Editar" class="btn btn-success mr-2" asp-page="./Producto"

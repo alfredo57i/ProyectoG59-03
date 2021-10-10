@@ -20,5 +20,28 @@ namespace ElGordo.App.Persistencia
                 optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog =ElGordoDB");
             }
         }
+
+        //Función que carga los datos por defecto para las tablas necesarias.
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<EstadoProducto>().HasData(new EstadoProducto[] {
+                new EstadoProducto{Id=1, Nombre="Disponible"},
+                new EstadoProducto{Id=2, Nombre="NO Disponible"},
+                new EstadoProducto{Id=3, Nombre="Descontinuado"},
+            });
+            modelBuilder.Entity<EstadoPedido>().HasData(new EstadoPedido[] {
+                new EstadoPedido{Id=1, Nombre="Realizado"},
+                new EstadoPedido{Id=2, Nombre="En Preparación"},
+                new EstadoPedido{Id=3, Nombre="Enviado"},
+                new EstadoPedido{Id=4, Nombre="Entregado"},
+            });
+            modelBuilder.Entity<EstadoFactura>().HasData(new EstadoFactura[] {
+                new EstadoFactura{Id=1, Nombre="Aprobada"},
+                new EstadoFactura{Id=2, Nombre="Anulada"},
+            });
+            modelBuilder.Entity<Usuario>().HasData(new Usuario[] {
+                new Usuario{Id=1, Nickname="admin", Nombre="Administrador", Password = "admin"},
+            });
+        }
     }
 }
