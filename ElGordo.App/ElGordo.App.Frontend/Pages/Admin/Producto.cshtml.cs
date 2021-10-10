@@ -53,7 +53,7 @@ namespace ElGrodo.Frontend.Pages
         public IActionResult OnPost(int estado)//Estado es el nombre del Select estados.
         {
             Producto.Estado=estado;
-            Console.WriteLine(JsonSerializer.Serialize(Producto));
+            //Console.WriteLine(JsonSerializer.Serialize(Producto));
             if (!ModelState.IsValid) { return Page(); }
             if (Producto.Id > 0)
             {
