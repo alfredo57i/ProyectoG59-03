@@ -27,25 +27,20 @@ namespace ElGrodo.Frontend.Pages
         }
         public IActionResult OnGet(int? productoId)
         {
-            if (productoId.HasValue)
-            {
+            //Si el productoId que llega por GET tiene un valor
+            if (productoId.HasValue){
+                //Busca el producto en la base de datos
                 Producto = _repProducto.GetProducto(productoId.Value);
-            }
-            else
-            {
-                Producto = new Producto
-                {
-                    Estado = 1,
-                    Imagen = "default.png"
-                };
+            }else{
+                //Crea un nuevo producto y agrega valores por defecto
+                Producto = new Producto{Estado = 1,Imagen = "default.png"};
             }
 
-            if (Producto == null)
-            {
-                return Redirect("/404");
-            }
-            else
-            {
+            //Si envian un Id de producto que no está en la base de datos
+            if (Producto == null){
+                //Devuelve la pagina de error
+                return Redirect("/Errors/404");
+            }else{
                 return Page();
             }
         }
@@ -57,11 +52,13 @@ namespace ElGrodo.Frontend.Pages
             if (!ModelState.IsValid) { return Page(); }
             if (Producto.Id > 0)
             {
+                //Si el Id del producto es mayor que cero actualizar el Producto enviado
                 Producto = _repProducto.UpdateProducto(Producto);
                 ViewData["Respuesta"] = Alerts.ShowAlert(Alert.Success, "<span>"+Producto.Nombre+" fue modificado correctamente</span>");
             }
             else
             {
+                //Si el Id del Prodcuto es CERO crea un nuevo producto
                 _repProducto.AddProducto(Producto);
                 ViewData["Respuesta"] = Alerts.ShowAlert(Alert.Primary, "<span><strong>"+Producto.Nombre+"</strong> se agregó a la lista de productos</span>");
             }

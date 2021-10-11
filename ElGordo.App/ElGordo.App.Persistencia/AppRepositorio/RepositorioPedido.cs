@@ -26,6 +26,16 @@ namespace ElGordo.App.Persistencia
             return _appContext.Pedido.OrderBy(p=>p.Estado);
         }
 
+        public IEnumerable<Pedido> GetPendientes()
+        {
+            var pedidoFind = GetAll();
+            if (pedidoFind != null)
+            {
+                pedidoFind = pedidoFind.Where(p => p.Estado < 4);
+            }
+            return pedidoFind;
+        }
+
         public IEnumerable<Pedido> GetPedidoPorEstado(int filtro)
         {
             var pedidoFind = GetAll();

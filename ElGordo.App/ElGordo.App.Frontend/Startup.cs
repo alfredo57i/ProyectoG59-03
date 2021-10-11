@@ -31,7 +31,7 @@ namespace ElGordo.App.Frontend
                  options.LoginPath = "/Admin/Login";//Dirección a la que se redirige si no está logeado
              });
             //<====== Lineas para habilitar sesiones =====>
-            services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
+            //services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
             services.AddMemoryCache();
             //<===========================================>
 
@@ -48,7 +48,7 @@ namespace ElGordo.App.Frontend
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                app.UseExceptionHandler("/Errors/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
@@ -58,6 +58,7 @@ namespace ElGordo.App.Frontend
 
             app.UseRouting();
             //<==================>
+            app.UseCookiePolicy();
             app.UseSession();
             //<==================>
 
