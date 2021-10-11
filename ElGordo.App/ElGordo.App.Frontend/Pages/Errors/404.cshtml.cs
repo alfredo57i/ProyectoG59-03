@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ElGrodo.App.Frontend.Pages
 {
-    public class _404Model : PageModel
+    public class Error404Model : PageModel
     {
         public void OnGet()
         {
