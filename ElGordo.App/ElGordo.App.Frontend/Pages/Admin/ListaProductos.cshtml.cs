@@ -39,10 +39,5 @@ namespace ElGrodo.App.Frontend.Pages
             }
         }
 
-        public ActionResult Hola()
-        {
-            Console.WriteLine("Dentro de la funcion");
-            return Page();
-        }
     }
 }

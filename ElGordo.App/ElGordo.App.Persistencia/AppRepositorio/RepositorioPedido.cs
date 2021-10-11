@@ -23,7 +23,7 @@ namespace ElGordo.App.Persistencia
 
         public IEnumerable<Pedido> GetAll()
         {
-            return _appContext.Pedido.OrderBy(p=>p.Estado);
+            return _appContext.Pedido.AsNoTracking().OrderBy(p=>p.Estado);
         }
 
         public IEnumerable<Pedido> GetPendientes()
@@ -53,7 +53,7 @@ namespace ElGordo.App.Persistencia
 
         public Pedido GetPorCodigo(string codigo)
         {
-            return _appContext.Pedido.SingleOrDefault(p => p.Codigo == codigo);
+            return _appContext.Pedido.AsNoTracking().SingleOrDefault(p => p.Codigo == codigo);
         }
 
         public Pedido UpdateEstadoPedido(int idPedido,int idEstado)

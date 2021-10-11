@@ -7,7 +7,7 @@ namespace ElGordo.App.Dominio
     {
         public int Id { get; set; }
         [Required(ErrorMessage = "No es un nombre válido"), StringLength(50)]
-        public string Nombre { get; set; }    
+        public string Nombre { get; set; }
         public int Estado { get; set; }
         public float Precio { get; set; }
         [Required(ErrorMessage = "Debe seleccionar una imagen")]

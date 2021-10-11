@@ -48,7 +48,7 @@ namespace ElGrodo.App.Frontend.Pages
             HttpContext.Session.Remove("pedido");
 
             //Se asigna el estado del pedido a "Realizado" y se agrega la fecha y hora actual
-            Pedido.Estado = 1;//Se asigna el estado como Disponible
+            Pedido.Estado = 1;//Se asigna el estado como Realizado
             //Se asigna DateTime a todas las fechas para evitar valores nulos 
             Pedido.Fecha_pedido = DateTime.Now;
             Pedido.Fecha_preparacion = DateTime.Now;

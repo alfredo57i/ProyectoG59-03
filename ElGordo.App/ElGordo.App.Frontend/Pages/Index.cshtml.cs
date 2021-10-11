@@ -31,7 +31,6 @@ namespace ElGordo.App.Frontend.Pages
 
         public void OnPost(string carrito)
         {
-            Console.WriteLine("llega");
             var lista = JsonConvert.DeserializeObject<List<Carrito>>(carrito);
             foreach (var item in lista)
             {
