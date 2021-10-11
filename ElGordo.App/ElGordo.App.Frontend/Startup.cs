@@ -31,7 +31,7 @@ namespace ElGordo.App.Frontend
                  options.LoginPath = "/Admin/Login";//Dirección a la que se redirige si no está logeado
              });
             //<====== Lineas para habilitar sesiones =====>
-            //services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
+            services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
             services.AddMemoryCache();
             //<===========================================>
 
