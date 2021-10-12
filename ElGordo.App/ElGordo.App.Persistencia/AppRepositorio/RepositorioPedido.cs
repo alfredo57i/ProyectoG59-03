@@ -56,16 +56,16 @@ namespace ElGordo.App.Persistencia
             return _appContext.Pedido.AsNoTracking().SingleOrDefault(p => p.Codigo == codigo);
         }
 
-        public Pedido UpdateEstadoPedido(int idPedido,int idEstado)
+        public Pedido UpdateEstadoPedido(int idPedido)
         {
             var pedidoActualizar = _appContext.Pedido.FirstOrDefault(p => p.Id == idPedido);
             if (pedidoActualizar != null)
             {
-                pedidoActualizar.Estado = idEstado;
-                if(idEstado==2){
+                pedidoActualizar.Estado = pedidoActualizar.Estado+1;
+                if(pedidoActualizar.Estado == 2){
                     pedidoActualizar.Fecha_preparacion = DateTime.Now;
                 }
-                else if(idEstado==3)
+                else if(pedidoActualizar.Estado == 3)
                 {
                     pedidoActualizar.Fecha_envio = DateTime.Now;
                 }

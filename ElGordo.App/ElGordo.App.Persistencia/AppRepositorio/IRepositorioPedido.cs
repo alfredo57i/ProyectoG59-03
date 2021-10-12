@@ -11,6 +11,6 @@ namespace ElGordo.App.Persistencia
          Pedido GetPorCodigo(string codigo);
          Pedido GetPedido(int pedidoId);
          Pedido AddPedido(Pedido pedido);
-         Pedido UpdateEstadoPedido(int idPedido,int idEstado);
+         Pedido UpdateEstadoPedido(int idPedido);
     }
 }

@@ -9,6 +9,5 @@ namespace ElGordo.App.Dominio
         public int Producto{get;set;}
         public float Precio{get;set;}
         public int Cantidad{get;set;}
-        //public float Impuesto{get;set;}
     }
 }

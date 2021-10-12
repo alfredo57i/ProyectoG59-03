@@ -6,5 +6,5 @@ namespace ElGordo.App.Dominio
         public string Nickname{get;set;}
         public string Nombre{get;set;}
         public string Password{get;set;}
-    }
+    } 
 }

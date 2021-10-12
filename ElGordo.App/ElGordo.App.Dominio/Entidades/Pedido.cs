@@ -22,4 +22,4 @@ namespace ElGordo.App.Dominio
         public DateTime? Fecha_envio{get;set;}
         public DateTime? Fecha_entrega{get;set;}
     }
-}
+} 

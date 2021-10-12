@@ -22,5 +22,5 @@ namespace ElGordo.App.Frontend
                 {
                     webBuilder.UseStartup<Startup>();
                 });
-    }
+    } 
 }

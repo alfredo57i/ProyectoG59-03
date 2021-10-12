@@ -98,7 +98,6 @@ namespace ElGrodo.App.Frontend.Pages
                 Fecha = DateTime.Now,
                 Detalles = ListaDetalles    
             };
-            // IEnumerable<Detalle> ListaDetallesBD = ListaDetalles.AsEnumerable();
         }        
     }
 }

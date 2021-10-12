@@ -41,7 +41,7 @@ namespace ElGrodo.App.Frontend.Pages
                     Factura = _repoFactura.GetFactura(Pedido.Factura);
                     ViewData["latitud"] = Pedido.LatitudEntrega;
                     ViewData["longitud"] = Pedido.LongitudEntrega;
-                } 
+                }
             }            
         }
     }

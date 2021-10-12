@@ -27,8 +27,8 @@ namespace ElGordo.App.Frontend
             //<======= Codigo para manejar la autenticación de usuario ==>
             services.AddAuthentication("CookieAdmin").AddCookie("CookieAdmin", options =>
              {
-                 options.Cookie.Name = "CookieAdmin";//Nombre de la Cookie
-                 options.LoginPath = "/Admin/Login";//Dirección a la que se redirige si no está logeado
+                 options.Cookie.Name = "CookieAdmin";// Nombre de la Cookie
+                 options.LoginPath = "/Admin/Login";// Dirección a la que se redirige si no está logeado
              });
             //<====== Lineas para habilitar sesiones =====>
             services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));

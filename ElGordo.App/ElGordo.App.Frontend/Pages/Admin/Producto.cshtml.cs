@@ -18,7 +18,6 @@ namespace ElGrodo.Frontend.Pages
     {
         private static readonly IRepositorioProductos _repProducto = new RepositorioProductos(new ElGordo.App.Persistencia.AppContext());
         private static readonly IRepositorioEstadoProducto _repEstadoProducto = new RepositorioEstadoProducto(new ElGordo.App.Persistencia.AppContext());
-        // private readonly IRepositorioProductos repProductos;
         [BindProperty]
         public Producto Producto { get; set; }
         public IEnumerable<EstadoProducto> estadosProducto = _repEstadoProducto.GetAllEstadosProducto();

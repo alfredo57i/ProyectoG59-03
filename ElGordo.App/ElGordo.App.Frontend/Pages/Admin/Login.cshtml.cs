@@ -15,8 +15,6 @@ namespace ElGrodo.App.Frontend.Pages
     public class LoginModel : PageModel
     {
         private static readonly IRepositorioUsuario _repUsuario = new RepositorioUsuario(new ElGordo.App.Persistencia.AppContext());
-        //[BindProperty]
-        //public Credential Credential{get;set;}
         public void OnGet()
         {
         }
@@ -25,7 +23,6 @@ namespace ElGrodo.App.Frontend.Pages
         {
             //Valida si los campos introducidos son correctos
             if(!ModelState.IsValid) return Page();
-            //if(Credential.UserName=="admin" && Credential.Password=="10")
             var login = _repUsuario.Login(usuario,password);
             if(login!=null)
             {
@@ -41,12 +38,4 @@ namespace ElGrodo.App.Frontend.Pages
             return Page();
         }
     }
-    // public class Credential
-    // {
-    //     [Required]
-    //     public string UserName{get;set;}
-    //     [Required]
-    //     [DataType(DataType.Password)]
-    //     public string Password{get;set;}
-    // }
 }

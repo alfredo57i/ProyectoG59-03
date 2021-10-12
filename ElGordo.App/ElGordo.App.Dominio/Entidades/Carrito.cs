@@ -6,5 +6,5 @@ namespace ElGordo.App.Dominio
         public string Item{get;set;}
         public int Precio{get;set;}
         public int Cantidad{get;set;}
-    }
+    } 
 }

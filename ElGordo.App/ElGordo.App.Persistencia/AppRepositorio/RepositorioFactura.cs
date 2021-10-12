@@ -22,7 +22,7 @@ namespace ElGordo.App.Persistencia
 
         IEnumerable<Factura> IRepositorioFactura.GetAllFacturas()
         {
-            return _appContext.Factura.Include(f=>f.Detalles).AsNoTracking();
+            return _appContext.Factura.Include(f=>f.Detalles).AsNoTracking().OrderBy(f=>f.Fecha);
         }
 
         Factura IRepositorioFactura.GetFactura(int idFactura)
