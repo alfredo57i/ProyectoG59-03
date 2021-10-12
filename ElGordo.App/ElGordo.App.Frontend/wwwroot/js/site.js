@@ -5,18 +5,16 @@ function validaNumero(event) {
 }
 
 //Funcion JQuery que oculta el boton carrito de compras y muestra la lista de compras
-function OcultarLista(){
+function OcultarLista() {
     $("#ticket").hide("500");
     $("#cart").show("500");
 }
 
 //Funcion JQuery que oculta la lista de compras y muetra el boton carrito de compras
-function MostrarLista(){
+function MostrarLista() {
     $("#ticket").show("500");
     $("#cart").hide("500");
 }
-
-//Lista que almacena los items seleccionados
 
 //Función que agrega el punto decimal a los numeros
 function moneda(val) {
@@ -31,5 +29,4 @@ function moneda(val) {
 //Activar los tooltip de bootstrap para mostrar globos on hover
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
-  })
-
+})

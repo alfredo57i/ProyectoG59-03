@@ -17,4 +17,4 @@
     <ProjectReference Include="..\ElGordo.App.Persistencia\ElGordo.App.Persistencia.csproj" />
   </ItemGroup>
 
-</Project>
+</Project> 

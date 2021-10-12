@@ -16,4 +16,4 @@ namespace ElGordo.App.Dominio
         [Required(ErrorMessage = "Agregue una descripción")]
         public string Descripcion { get; set; }
     }
-}
+} 

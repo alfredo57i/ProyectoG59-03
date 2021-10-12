@@ -28,4 +28,4 @@ namespace ElGordo.App.Frontend.Pages
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
         }
     }
-}
+} 

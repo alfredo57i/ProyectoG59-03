@@ -11,8 +11,7 @@ namespace ElGordo.App.Consola
         private static IRepositorioEstadoProducto _repEstadoProducto = new RepositorioEstadoProducto(new App.Persistencia.AppContext());
         static void Main(string[] args)
         {
-            Console.WriteLine("No olvides sonreir");
+            Console.WriteLine("...");
         }
-
     }
 }

@@ -1,5 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,19 +10,20 @@
     <link rel="stylesheet" href="~/css/paper.css" />
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">
+                <a class="navbar-brand" asp-area="" asp-page="/Index" data-toggle="tooltip" title="Inicio">
                     <img src="~/img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
                     El Gordo
                 </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <partial name="_Menu"/>                
+                <partial name="_Menu" />
             </div>
         </nav>
     </header>
@@ -33,13 +35,19 @@
 
     <footer class="border-top footer text-muted text-center">
         <div class="container">
-            &copy; 2021 - El Gordo - <a asp-area="" asp-page="/Privacy">Políticas de Privacidad</a>
+            &copy; 2021 - El Gordo - <a asp-area="" asp-page="/Acerca">Acerca de</a>
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>  
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js">
+    </script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js">
+    </script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
+
 </html>

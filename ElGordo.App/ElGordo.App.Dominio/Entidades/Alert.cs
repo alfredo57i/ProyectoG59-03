@@ -8,4 +8,4 @@ namespace ElGordo.App.Dominio
         Warning,
         Danger
     }
-}
+} 

@@ -15,6 +15,12 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-page="/Pedido/Index" data-toggle="tooltip"
+                title="Buscar">
+                    Buscar
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link text-dark" asp-area="" asp-page="/Admin/Informes" data-toggle="tooltip"
                 title="Informes de ventas">
                     Informes
@@ -29,9 +35,6 @@
         <a class="nav-link text-dark pr-0" asp-area="" asp-page="/Admin/Logout" data-toggle="tooltip" title="Salir">
             <i class="fa fa-power-off  h5 m-0"></i>
         </a>
-        @* <form class="form-inline my-2 my-lg-0 justify-content-end" method="POST" asp-page="/Admin/Logout">
-            <button type="submit" class="btn btn-outline-primary ml-2">Salir</button>
-            </form> *@
     </div>
 }
 else

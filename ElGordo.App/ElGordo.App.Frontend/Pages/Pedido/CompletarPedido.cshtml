@@ -3,7 +3,6 @@
 @{
     ViewData["Title"] = "Detalles De Envío";
 }
- @* @Html.Raw(@ViewData["JsonCarrito"])  *@
 <div class="d-flex justify-content-center">
     <div class="text-center border rounded shadow col-lg-4 col-md-6 col-sm-8 col-xs-10 m-4 p-4"
         style="min-width:350px;">
@@ -44,13 +43,6 @@
             </div>
             <button type="submit" class="btn btn-primary mt-4">Pagar</button>
         </form>
-
-        @* <form action="" class="mb-0 mx-4">
-
-
-            <a title="Ver detalles" class="btn btn-primary mt-4" href="/Pedido/Pago">Pagar</a>
-            </form> *@
-
     </div>
 </div>
 <partial name="_MapaDefinirUbicacion" />

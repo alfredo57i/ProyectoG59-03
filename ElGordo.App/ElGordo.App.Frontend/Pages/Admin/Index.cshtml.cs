@@ -81,7 +81,7 @@ namespace ElGrodo.App.Frontend.Pages
         public IActionResult OnPostCambiaEstado()
         {            
             var pedido = _repoPedidos.GetPedido(int.Parse(Request.Form["idpedido"]));//Captura el id del pedido
-            _repoPedidos.UpdateEstadoPedido(pedido.Id, pedido.Estado + 1); //Realiza el update del estado del pedido sumando 1 al estado actual
+            _repoPedidos.UpdateEstadoPedido(pedido.Id); //Realiza el update del estado del pedido sumando 1 al estado actual
             CargaPagina();
             return RedirectToPage("/Admin/Index");
         }

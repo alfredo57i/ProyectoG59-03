@@ -24,29 +24,33 @@ namespace ElGrodo.App.Frontend.Pages
         
         [BindProperty]
         public EstadoProducto EstadoProducto { get; set; }
+        [BindProperty]
+        public EstadoPedido EstadoPedido { get; set; }
+        [BindProperty]
+        public EstadoFactura EstadoFactura{ get; set; }
         public void OnGet()
         {
             //Se inician los objetos en Blanco
             EstadoProducto = new EstadoProducto{};
+            EstadoPedido = new EstadoPedido{};
+            EstadoFactura = new EstadoFactura{};
         }
 
-        public IActionResult OnPostNuevoEstadoProducto()
+        public IActionResult OnPostNuevo()
         {            
             //Console.WriteLine(JsonSerializer.Serialize(EstadoProducto));
-            if (!ModelState.IsValid) {
-                return Page(); 
-            }
-            //_repEstadoProducto.AddEstadoProducto(EstadoProducto);
-            ViewData["Respuesta"] = Alerts.ShowAlert(Alert.Success, "<span>"+EstadoProducto.Nombre+" fue agregado a la lista de <strong>Estados Producto</strong>.</span>");
+            ViewData["Respuesta"] = Alerts.ShowAlert(Alert.Primary, "<span><strong>"+Request.Form["estado"]+"</strong> fue agregado a la lista de Estados.</span>");
             return Page();
         }
-        public void OnPostEditarEstadoProducto()
+        public IActionResult OnPostEditar()
         {
-            Console.WriteLine("Editar");
+            ViewData["Respuesta"] = Alerts.ShowAlert(Alert.Success, "<span><strong>"+Request.Form["estado"]+"</strong> se actualizó correctamente.</span>");
+            return Page();
         }
-        public void OnPostEliminarEstadoProducto()
+        public IActionResult OnPostEliminar()
         {
-            Console.WriteLine("Eliminar");
+            ViewData["Respuesta"] = Alerts.ShowAlert(Alert.Danger, "<span><strong>"+Request.Form["estadoSelect"]+"</strong> se eliminó de la lista.</span>");
+            return Page();
         }
     }
 }

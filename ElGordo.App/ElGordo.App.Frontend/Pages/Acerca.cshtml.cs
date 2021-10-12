@@ -8,11 +8,11 @@ using Microsoft.Extensions.Logging;
 
 namespace ElGordo.App.Frontend.Pages
 {
-    public class PrivacyModel : PageModel
+    public class AcerdaDeModel : PageModel
     {
-        private readonly ILogger<PrivacyModel> _logger;
+        private readonly ILogger<AcerdaDeModel> _logger;
 
-        public PrivacyModel(ILogger<PrivacyModel> logger)
+        public AcerdaDeModel(ILogger<AcerdaDeModel> logger)
         {
             _logger = logger;
         }

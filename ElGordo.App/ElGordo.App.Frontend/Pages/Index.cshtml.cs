@@ -14,7 +14,6 @@ namespace ElGordo.App.Frontend.Pages
     public class IndexModel : PageModel
     {
         private static readonly IRepositorioProductos _repProducto = new RepositorioProductos(new ElGordo.App.Persistencia.AppContext());
-        // private readonly IRepositorioProductos repProductos;
         public IEnumerable<Producto> Productos { get; set; }
         public string Listado { get; set; }
 

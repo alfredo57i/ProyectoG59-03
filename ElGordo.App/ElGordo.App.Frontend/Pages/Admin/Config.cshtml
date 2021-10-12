@@ -6,33 +6,37 @@
 <div class="row d-flex justify-content-center">
     <div class="col-6">
         @Html.Raw(@ViewData["Respuesta"])
-    </div>
+    </div>    
 </div>
 <div class="d-flex justify-content-center">
-    @* <div class="border rounded p-4 m-4">
+    <h3 class="text-muted my-4">SECCIÓN NO DISPONIBLE</h3>
+</div>
+<div class="d-flex justify-content-center">    
+    <div class="border rounded p-4 m-4">
         <h5 class="mb-4">Estados Pedido</h5>
-        <select class="form-control mb-4" name="estado" id="selectEstado">
+        <select class="form-control mb-4" name="estadoSelect" id="selectEstado">
             @foreach (var item in Model.estadosPedido)
             {
                 <option value="@item.Id">@item.Nombre</option>
             }
         </select>
         <form class="" method="POST">
+            <input type="hidden" asp-for="EstadoPedido.Id" />
             <div class="form-group">
-                <input asp-for="EstadoPedido.Nombre" class="form-control" name="estadoProducto">
+                <input asp-for="EstadoPedido.Nombre" class="form-control" name="estado">
                 <span asp-validation-for="EstadoPedido.Nombre" class="text-danger"></span>
             </div>
             <div>
-                <button type="submit" class="btn btn-outline-primary mr-2" asp-page-handler="NuevoEstadoPedido">Nuevo</button>
-                <button type="submit" class="btn btn-outline-primary mr-2" asp-page-handler="EditarEstadoPedido">Editar</button>
-                <button type="submit" class="btn btn-outline-danger" asp-page-handler="EliminarEstadoPedido">Eliminar</button>
+                <button type="submit" class="btn btn-outline-primary mr-2" asp-page-handler="Nuevo">Nuevo</button>
+                <button type="submit" class="btn btn-outline-primary mr-2" asp-page-handler="Editar">Editar</button>
+                <button type="submit" class="btn btn-outline-danger" asp-page-handler="Eliminar">Eliminar</button>
             </div>
         </form>
-    </div> *@
+    </div>
 
     <div class="border rounded p-4 m-4">
         <h5 class="mb-4">Estados Producto</h5>
-        <select class="form-control mb-4" name="estado" id="selectEstado">
+        <select class="form-control mb-4" name="estadoSelect" id="selectEstado">
             @foreach (var item in Model.estadosProducto)
             {
                 <option value="@item.Id">@item.Nombre</option>
@@ -41,32 +45,36 @@
         <form class="" method="POST">
             <input type="hidden" asp-for="EstadoProducto.Id" />
             <div class="form-group">
-                <input asp-for="EstadoProducto.Nombre" class="form-control">
+                <input asp-for="EstadoProducto.Nombre" class="form-control" name="estado">
                 <span asp-validation-for="EstadoProducto.Nombre" class="text-danger"></span>
-                <span asp-validation-for="EstadoProducto.Id" class="text-danger"></span>
             </div>
             <div>
-                <button type="submit" class="btn btn-outline-primary mr-2" asp-page-handler="NuevoEstadoProducto">Nuevo</button>
-                <button type="submit" class="btn btn-outline-primary mr-2" asp-page-handler="EditarEstadoProducto">Editar</button>
-                <button type="submit" class="btn btn-outline-danger" asp-page-handler="EliminarEstadoProducto">Eliminar</button>
+                <button type="submit" class="btn btn-outline-primary mr-2" asp-page-handler="Nuevo">Nuevo</button>
+                <button type="submit" class="btn btn-outline-primary mr-2" asp-page-handler="Editar">Editar</button>
+                <button type="submit" class="btn btn-outline-danger" asp-page-handler="Eliminar">Eliminar</button>
             </div>
         </form>
     </div>
 
-    @* <div class="border rounded p-4 m-4">
-        <h5 class="mb-4">Estados Factura</h5>
-        <select class="form-control mb-4" name="estado" id="selectEstado">
-            @foreach (var item in Model.estadosFactura)
+    <div class="border rounded p-4 m-4">
+        <h5 class="mb-4">Estados Producto</h5>
+        <select class="form-control mb-4" name="estadoSelect" id="selectEstado">
+            @foreach (var item in Model.estadosProducto)
             {
                 <option value="@item.Id">@item.Nombre</option>
             }
         </select>
-        <input type="text" class="form-control mb-4" />
-        <div>
-            <button class="btn btn-outline-primary mr-2">Nuevo</button>
-            <button class="btn btn-outline-primary mr-2">Editar</button>
-            <button class="btn btn-outline-danger">Eliminar</button>
-        </div>
-    </div> *@
-
+        <form class="" method="POST">
+            <input type="hidden" asp-for="EstadoFactura.Id" />
+            <div class="form-group">
+                <input asp-for="EstadoFactura.Nombre" class="form-control" name="estado">
+                <span asp-validation-for="EstadoFactura.Nombre" class="text-danger"></span>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-outline-primary mr-2" asp-page-handler="Nuevo">Nuevo</button>
+                <button type="submit" class="btn btn-outline-primary mr-2" asp-page-handler="Editar">Editar</button>
+                <button type="submit" class="btn btn-outline-danger" asp-page-handler="Eliminar">Eliminar</button>
+            </div>
+        </form>
+    </div>    
 </div>
