@@ -11,7 +11,7 @@
     </div>
 </div>
 <div class="row">
-    <form class="col-md-5 col-sm-10 m-sm-auto" method="POST">
+    <form class="col-md-5 col-sm-10 m-sm-auto" enctype="multipart/form-data" method="POST">
         <p id="af"></p>
         <input type="hidden" asp-for="Producto.Id" />
         <div class="form-group">
@@ -30,8 +30,9 @@
             </select>
         </div>
         <div class="form-group">
-            <label asp-for="Producto.Imagen"></label>
+            <label asp-for="Producto.Imagen"></label><br>
             <input asp-for="Producto.Imagen" class="form-control">
+            <input type="file" asp-for="Imagen" id="imagenUpload">
             <span asp-validation-for="Producto.Imagen" class="text-danger"></span>
         </div>
         <div class="form-group">
@@ -80,21 +81,37 @@
 @section Scripts {
 <script>
     $(document).ready(function (e) {
+
         //Modifica el nombre (Vista Previa) mientras se escribe
-        $("#Producto_Nombre").on('input', function() {
+        $("#Producto_Nombre").on('input', function () {
             $("#nombreProdcuto").text($(this).val());
         });
+
         //Modifica la imagen (Vista Previa) mientras se escribe
-        $("#Producto_Imagen").on('input', function() {
-            $("#imagenProducto").attr("src","/img/"+$(this).val());
+        $("#Producto_Imagen").on('input', function () {
+            $("#imagenProducto").attr("src", "/img/" + $(this).val());
         });
+
         //Modifica la descripcion (Vista Previa) mientras se escribe
-        $("#Producto_Descripcion").on('input', function() {
+        $("#Producto_Descripcion").on('input', function () {
             $("#productoDescripcion").text($(this).val());
         });
+
         //Modifica el precio (Vista Previa) mientras se escribe
-        $("#Producto_Precio").on('input', function() {
-            $("#productoPrecio").text("$"+moneda($(this).val()));
+        $("#Producto_Precio").on('input', function () {
+            $("#productoPrecio").text("$" + moneda($(this).val()));
+        });
+
+        $("#imagenUpload").change(function () {
+            if (this.files && this.files[0]) {
+            var reader = new FileReader();
+            var filename = $('input[type=file]').val().split('\\').pop();
+            reader.onload = function (e) {
+                $('#imagenProducto').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(this.files[0]);
+            $("#Producto_Imagen").val(filename);
+        }
         });
     });
 </script>
