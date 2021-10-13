@@ -21,5 +21,13 @@ namespace ElGrodo.App.Frontend.Pages
         {
             Pedidos = _repoPedidos.GetAll();
         }
+        public IActionResult OnPost()
+        {
+            // ViewData["fechamin"] = Request.Form["fechamin"];
+            // ViewData["fechamax"] = Request.Form["fechamax"];
+            // Console.WriteLine(Request.Form["fechamin"]+" "+Request.Form["fechamax"]);
+            // Pedidos = _repoPedidos.GetAll();
+            return Page();
+        }
     }
 }

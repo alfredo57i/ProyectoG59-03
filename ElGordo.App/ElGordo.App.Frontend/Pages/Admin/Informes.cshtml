@@ -3,24 +3,23 @@
 @model ElGrodo.App.Frontend.Pages.InformesModel
 @{
 }
-
 <table id="tablaFacturas" class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
         <tr>
             <td colspan="3">
                 <div class="d-flex">
                     <form action="" class="form-inline">
-                        <input type="date" class="form-control mr-3" />
-                    <input type="date" class="form-control mr-3" />
-                    <button class="bnt btn-outline-primary form-control" type="submit">Filtrar</button>
-                    </form>                    
+                        <input type="date" class="form-control mr-3" name="fechamin"/>
+                        <input type="date" class="form-control mr-3" name="fechamax"/>
+                        <button class="bnt btn-outline-primary form-control" type="submit">Filtrar</button>
+                    </form>
                 </div>
             </td>
             <th>TOTAL:</th>
             <th id="totalTabla">000.000</>
         </tr>
         <tr>
-            <th scope="col">NÚMERO</th>
+            <th scope="col">FACTURA Nº</th>
             <th scope="col">FECHA</th>
             <th scope="col">CLIENTE</th>
             <th scope="col">ESTADO</th>
@@ -42,7 +41,7 @@
                     asp-route-ProductoId="@pedido.Id" data-toggle="modal" data-target=".modal">Ver
                     </a>
                 </th>
-                <td>@factura.Fecha</td>
+                <td>@factura.Fecha.ToString("dd/mm/yy")</td>
                 <td>@pedido.Cliente</td>
                 <td>
                     @{
