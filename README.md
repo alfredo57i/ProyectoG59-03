@@ -1,2 +1,18 @@
-# ProyectoG59-03
- **Este es el proyecto del grupo G59-03 que se trabajará dentro del ciclo 3 de MisionTIC2021**
+## Proyecto Domicilios con .NET y Entity Frameworks
+**G59-03 ciclo 3 MisionTIC2022**
+####
+![Image text](/ElGordo.App.Frontend/wwwroot/img/misiontic2022.png)
+
+## Implementación
+
+Ejecutar ***dotnet build*** en dominio y persistencia
+
+Ejecutar desde la capa de Persistencia.
+
+```bash
+dotnet ef database update --startup-project ..\ElGordo.App.Consola\
+```
+Esto genera la base de datos con los estados por defecto para Productos, Facturas y Pedidos, al igual que un usuario **admin** con password **admin** para ingresar al panel de control. Ubicado en la dirección: 
+
+https://localhost:5001/Admin
+
