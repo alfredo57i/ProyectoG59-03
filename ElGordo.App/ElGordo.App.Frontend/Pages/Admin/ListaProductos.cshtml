@@ -5,7 +5,6 @@
     ViewData["Title"] = "Productos";
 }
 <h4 class="mb-4">Lista de productos</h4>
-@* @Html.Raw(@ViewData["Respuesta"])  *@
 <a asp-page="./Producto" class="btn btn-primary mb-3">Nuevo Producto</a>
 <table class="table">
     <thead>
@@ -30,8 +29,7 @@
                 <td>$ @Producto.Precio.ToString("0,0",new CultureInfo("es-AR"))</td>
                 <td>
                     <form method="POST" id="@Producto.Id" class="form-inline">
-                        <a title="Editar" class="btn btn-success mr-2" asp-page="./Producto"
-                        asp-route-ProductoId="@Producto.Id">
+                        <a class="btn btn-success mr-2" asp-page="./Producto" data-toggle="tooltip" data-placement="left" title="Editar" asp-route-ProductoId="@Producto.Id">
                             <i class="fas fa-edit" aria-hidden="true"></i>
                         </a>
                         <input type="hidden" value="@Producto.Id" name="productoId" >
@@ -39,12 +37,12 @@
                     @{
                         if (Producto.Estado == 1)
                         {
-                            <a href="javascript:$('#@Producto.Id').submit();" title="Ocultar" class="btn btn-primary"><i
+                            <a href="javascript:$('#@Producto.Id').submit();" class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Ocultar"><i
                             class="fas fa-eye"></i></a>
                         }
                         else if (Producto.Estado == 2)
                         {
-                            <a href="javascript:$('#@Producto.Id').submit();" title="Mostrar" class="btn btn-danger"><i
+                            <a href="javascript:$('#@Producto.Id').submit();" class="btn btn-danger" data-toggle="tooltip" data-placement="right" title="Mostrar"><i
                             class="fas fa-eye"></i></a>
                         }
                     }

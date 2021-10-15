@@ -19,8 +19,8 @@ namespace ElGrodo.App.Frontend.Pages
 
         public ListaProductosModel()
         {
-            this.Productos = _repProducto.GetAll();
             this._repProducto = new RepositorioProductos(new ElGordo.App.Persistencia.AppContext());
+            this.Productos = _repProducto.GetAll();            
         }
 
         public void OnGet()

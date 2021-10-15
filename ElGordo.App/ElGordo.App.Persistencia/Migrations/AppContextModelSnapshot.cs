@@ -56,7 +56,9 @@ namespace ElGordo.App.Persistencia.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -86,7 +88,9 @@ namespace ElGordo.App.Persistencia.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -251,6 +255,53 @@ namespace ElGordo.App.Persistencia.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Producto");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Descripcion = "Hamburguesa XXL",
+                            Estado = 1,
+                            Imagen = "hamburguesa.jpg",
+                            Nombre = "Hamburguesa",
+                            Precio = 12000f
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Descripcion = "Perro mini",
+                            Estado = 1,
+                            Imagen = "perro.jpg",
+                            Nombre = "Perro Caliente",
+                            Precio = 6000f
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Descripcion = "Papas extra crujientes",
+                            Estado = 1,
+                            Imagen = "papas.jpg",
+                            Nombre = "Papas fritas",
+                            Precio = 4000f
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Descripcion = "Empanada dietética",
+                            Estado = 1,
+                            Imagen = "carne.jpg",
+                            Nombre = "Empanada de Carne",
+                            Precio = 1500f
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Descripcion = "Empanada que no engorda",
+                            Estado = 1,
+                            Imagen = "pollo.jpg",
+                            Nombre = "Empanada de Pollo",
+                            Precio = 1500f
+                        });
                 });
 
             modelBuilder.Entity("ElGordo.App.Dominio.Usuario", b =>

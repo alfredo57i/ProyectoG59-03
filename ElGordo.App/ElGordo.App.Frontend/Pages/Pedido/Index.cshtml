@@ -47,7 +47,7 @@ else
                         @((Model.Pedido.Estado > 1
                     )?Html.Raw(((DateTime)Model.Pedido.Fecha_preparacion).ToString(formato)):Html.Raw(clock))
                     </li>
-                    <li class="list-group-item p-1">Envío:
+                    <li class="list-group-item p-1">Enviado:
                         @((Model.Pedido.Estado > 2
                     )?Html.Raw(((DateTime)Model.Pedido.Fecha_envio).ToString(formato)):Html.Raw(clock))
                     </li>

@@ -1,5 +1,5 @@
 ## Proyecto Domicilios con .NET y Entity Frameworks
-**G59-03 ciclo 3 MisionTIC2022**
+**Grupo 59 Equipo 03 - ciclo 3 MisionTIC2022**
 ####
 ![Image text](/ElGordo.App/ElGordo.App.Frontend/wwwroot/img/misiontic2022.png)
 
@@ -12,7 +12,7 @@ Ejecutar desde la capa de Persistencia.
 ```bash
 dotnet ef database update --startup-project ..\ElGordo.App.Consola\
 ```
-Esto genera la base de datos con los estados por defecto para Productos, Facturas y Pedidos, al igual que un usuario **admin** con password **admin** para ingresar al panel de control.
+Esto genera la base de datos en SQLServer con los estados por defecto para Productos, Facturas y Pedidos, al igual que cinco Producto y un usuario **admin** con password **admin** para ingresar al panel de control.
 
 ## Módulo Cliente
 

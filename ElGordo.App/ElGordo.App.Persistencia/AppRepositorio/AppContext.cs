@@ -42,6 +42,13 @@ namespace ElGordo.App.Persistencia
             modelBuilder.Entity<Usuario>().HasData(new Usuario[] {
                 new Usuario{Id=1, Nickname="admin", Nombre="Administrador", Password = "admin"},
             });
+            modelBuilder.Entity<Producto>().HasData(new Producto[] {
+                new Producto{Id=1, Nombre="Hamburguesa", Estado=1, Imagen = "hamburguesa.jpg",Descripcion = "Hamburguesa XXL", Precio=12000},
+                new Producto{Id=2, Nombre="Perro Caliente", Estado=1, Imagen = "perro.jpg",Descripcion = "Perro mini", Precio=6000},                
+                new Producto{Id=3, Nombre="Papas fritas", Estado=1, Imagen = "papas.jpg",Descripcion = "Papas extra crujientes", Precio=4000},
+                new Producto{Id=4, Nombre="Empanada de Carne", Estado=1, Imagen = "carne.jpg",Descripcion = "Empanada dietética", Precio=1500},
+                new Producto{Id=5, Nombre="Empanada de Pollo", Estado=1, Imagen = "pollo.jpg",Descripcion = "Empanada que no engorda", Precio=1500},
+            });
         }
     }
 }
