@@ -1,7 +1,7 @@
 ## Proyecto Domicilios con .NET y Entity Frameworks
 **G59-03 ciclo 3 MisionTIC2022**
 ####
-![Image text](/ElGordo.App.Frontend/wwwroot/img/misiontic2022.png)
+![Image text](/ElGordo.App/ElGordo.App.Frontend/wwwroot/img/misiontic2022.png)
 
 ## Implementación
 
