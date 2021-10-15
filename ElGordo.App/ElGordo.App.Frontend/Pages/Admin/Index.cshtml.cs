@@ -14,13 +14,21 @@ namespace ElGrodo.App.Frontend.Pages
     [Authorize]
     public class IndexAdminModel : PageModel
     {
-        public IRepositorioPedido _repoPedidos = new RepositorioPedido(new ElGordo.App.Persistencia.AppContext());
-        public IRepositorioEstadoPedido _repoEstadoPedidos = new RepositorioEstadoPedido(new ElGordo.App.Persistencia.AppContext());
-        public IRepositorioFactura _repoFactura = new RepositorioFactura(new ElGordo.App.Persistencia.AppContext());
-        public IRepositorioProductos _repoProducto = new RepositorioProductos(new ElGordo.App.Persistencia.AppContext());
+        public IRepositorioPedido _repoPedidos;
+        public IRepositorioEstadoPedido _repoEstadoPedidos;
+        public IRepositorioFactura _repoFactura;
+        public IRepositorioProductos _repoProducto;
         public IEnumerable<Pedido> Pedidos { get; set; }
         public IEnumerable<EstadoPedido> EstadoPedidos { get; set; }
         public string Marcadores { get; set; }
+
+        public IndexAdminModel()
+        {
+            this._repoPedidos = new RepositorioPedido(new ElGordo.App.Persistencia.AppContext());
+            this._repoEstadoPedidos = new RepositorioEstadoPedido(new ElGordo.App.Persistencia.AppContext());
+            this._repoFactura = new RepositorioFactura(new ElGordo.App.Persistencia.AppContext());
+            this._repoProducto = new RepositorioProductos(new ElGordo.App.Persistencia.AppContext());
+        }
 
         public void OnGet()
         {
@@ -34,9 +42,9 @@ namespace ElGrodo.App.Frontend.Pages
             //Si no se ha seleccionado ningun tipo de pedido se selecciona "Todos" por defecto
             var listaEstado = HttpContext.Session.GetInt32("lista") ?? 0;
             ViewData["listar"] = listaEstado;
-            //Si no se ha asignado in tipo de pedidos, se muestran todos los pedidos pendientes para entregar
+            //Si no se ha asignado un tipo de pedidos, se muestran todos los pedidos pendientes para entregar
             //De lo contrario busca los pedidos por estado.
-            Pedidos = (listaEstado == 0)?Pedidos = _repoPedidos.GetPendientes():Pedidos = _repoPedidos.GetPedidoPorEstado(listaEstado);
+            Pedidos = (listaEstado == 0)?_repoPedidos.GetPendientes():_repoPedidos.GetPedidoPorEstado(listaEstado);
             //Obtiene los estados de pedido.
             EstadoPedidos = _repoEstadoPedidos.GetAllEstadosPedido();
             //Llama a la función RecorrerPedidos que se encarga 

@@ -14,7 +14,12 @@ namespace ElGrodo.App.Frontend.Pages
 {
     public class LoginModel : PageModel
     {
-        private static readonly IRepositorioUsuario _repUsuario = new RepositorioUsuario(new ElGordo.App.Persistencia.AppContext());
+        private readonly IRepositorioUsuario _repUsuario;
+
+        public LoginModel()
+        {
+            this._repUsuario = new RepositorioUsuario(new ElGordo.App.Persistencia.AppContext());
+        }
         public void OnGet()
         {
         }
@@ -29,11 +34,13 @@ namespace ElGrodo.App.Frontend.Pages
                 var claims = new List<Claim>{
                     new Claim(ClaimTypes.Name, "admin")
                 };
+                //Crea una cookie para mantener la sesión
                 var identity = new ClaimsIdentity(claims, "CookieAdmin");
                 ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(identity);
                 await HttpContext.SignInAsync("CookieAdmin",claimsPrincipal).ConfigureAwait(false);
                 return RedirectToPage("/Admin/Index");
             }
+            //Devuelve el mensaje de error
             ViewData["Respuesta"] = Alerts.ShowAlert(Alert.Danger, "<span class='small'>Usuario o Contraseña incorrectos</span>");
             return Page();
         }

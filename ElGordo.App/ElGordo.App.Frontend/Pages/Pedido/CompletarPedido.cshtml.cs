@@ -24,20 +24,20 @@ namespace ElGrodo.App.Frontend.Pages
         public IActionResult OnPost()
         {
             return CargaDatos();
-            // Console.WriteLine(Request.Form["pedido"]);
-            // //det listaDetalles = System.Text.Json.JsonSerializer.Deserialize<det>(Request.Form["pedido"]);
-            // //ViewData["JsonPedido"] = HttpContext.Session.GetString("listaProd");
-            // ViewData["JsonPedido"]=Request.Form["pedido"];
         }
+
+        //Al hacer clic en el boton Pagar captura los datos del pedido y los guarda en una variable de sesión
         public IActionResult OnPostHacerPedido()
         {
             if (!ModelState.IsValid) { return CargaDatos();}
+            //Variable de sesión
             HttpContext.Session.SetString("pedido", JsonSerializer.Serialize(Pedido));
             return RedirectToPage("/Pedido/Pago");
         }
 
         public IActionResult CargaDatos()
         {
+            //Comprueba que existan datos en la variable de sesión "carrito"
             if(HttpContext.Session.GetString("carrito") == null||HttpContext.Session.GetString("carrito") == "[]"){
                 ViewData["JsonCarrito"] = "[]";
                 return RedirectToPage("/Index");
