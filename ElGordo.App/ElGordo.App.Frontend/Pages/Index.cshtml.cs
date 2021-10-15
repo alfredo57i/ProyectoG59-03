@@ -13,12 +13,13 @@ namespace ElGordo.App.Frontend.Pages
 {
     public class IndexModel : PageModel
     {
-        private static readonly IRepositorioProductos _repProducto = new RepositorioProductos(new ElGordo.App.Persistencia.AppContext());
+        public IRepositorioProductos _repProducto;
         public IEnumerable<Producto> Productos { get; set; }
         public string Listado { get; set; }
 
         public IndexModel()
         {
+            this._repProducto = new RepositorioProductos(new ElGordo.App.Persistencia.AppContext());
             this.Productos = _repProducto.GetDisponibles(1);//El "1" Para obtener los productos Disponibles
         }
 

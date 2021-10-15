@@ -14,12 +14,13 @@ namespace ElGrodo.App.Frontend.Pages
     [Authorize]
     public class ListaProductosModel : PageModel
     {
-        private static readonly IRepositorioProductos _repProducto = new RepositorioProductos(new ElGordo.App.Persistencia.AppContext());
+        private readonly IRepositorioProductos _repProducto;
         public IEnumerable<Producto> Productos { get; set; }
 
         public ListaProductosModel()
         {
             this.Productos = _repProducto.GetAll();
+            this._repProducto = new RepositorioProductos(new ElGordo.App.Persistencia.AppContext());
         }
 
         public void OnGet()

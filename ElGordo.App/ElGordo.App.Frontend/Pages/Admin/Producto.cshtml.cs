@@ -18,16 +18,19 @@ namespace ElGrodo.Frontend.Pages
     public class ProductoModel : PageModel
     {
         private readonly IWebHostEnvironment _enviroment;
-        private static readonly IRepositorioProductos _repProducto = new RepositorioProductos(new ElGordo.App.Persistencia.AppContext());
-        private static readonly IRepositorioEstadoProducto _repEstadoProducto = new RepositorioEstadoProducto(new ElGordo.App.Persistencia.AppContext());
+        private readonly IRepositorioProductos _repProducto;
+        private readonly IRepositorioEstadoProducto _repEstadoProducto;
         [BindProperty]
         public Producto Producto { get; set; }
         [BindProperty]
         public IFormFile Imagen { get; set; }
-        public IEnumerable<EstadoProducto> estadosProducto = _repEstadoProducto.GetAllEstadosProducto();
+        public IEnumerable<EstadoProducto> estadosProducto;
         public ProductoModel(IWebHostEnvironment environment)
         {
             _enviroment = environment;
+            this._repProducto  = new RepositorioProductos(new ElGordo.App.Persistencia.AppContext());
+            this._repEstadoProducto = new RepositorioEstadoProducto(new ElGordo.App.Persistencia.AppContext());
+            this.estadosProducto = _repEstadoProducto.GetAllEstadosProducto();
         }
         public IActionResult OnGet(int? productoId)
         {

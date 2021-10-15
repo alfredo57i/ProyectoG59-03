@@ -15,12 +15,12 @@ namespace ElGrodo.App.Frontend.Pages
     [Authorize]
     public class ConfigModel : PageModel
     {
-        private static readonly IRepositorioEstadoProducto _repEstadoProducto = new RepositorioEstadoProducto(new ElGordo.App.Persistencia.AppContext());
-        private static readonly IRepositorioEstadoPedido _repEstadoPedido = new RepositorioEstadoPedido(new ElGordo.App.Persistencia.AppContext());
-        private static readonly IRepositorioEstadoFactura _repEstadoFactura = new RepositorioEstadoFactura(new ElGordo.App.Persistencia.AppContext());
-        public IEnumerable<EstadoProducto> estadosProducto = _repEstadoProducto.GetAllEstadosProducto();
-        public IEnumerable<EstadoPedido> estadosPedido = _repEstadoPedido.GetAllEstadosPedido();
-        public IEnumerable<EstadoFactura> estadosFactura = _repEstadoFactura.GetAllEstadosFactura();
+        private readonly IRepositorioEstadoProducto _repEstadoProducto;
+        private readonly IRepositorioEstadoPedido _repEstadoPedido;
+        private readonly IRepositorioEstadoFactura _repEstadoFactura;
+        public IEnumerable<EstadoProducto> estadosProducto;
+        public IEnumerable<EstadoPedido> estadosPedido;
+        public IEnumerable<EstadoFactura> estadosFactura;
         
         [BindProperty]
         public EstadoProducto EstadoProducto { get; set; }
@@ -28,6 +28,16 @@ namespace ElGrodo.App.Frontend.Pages
         public EstadoPedido EstadoPedido { get; set; }
         [BindProperty]
         public EstadoFactura EstadoFactura{ get; set; }
+
+        public ConfigModel()
+        {
+            this._repEstadoProducto = new RepositorioEstadoProducto(new ElGordo.App.Persistencia.AppContext());
+            this._repEstadoPedido = new RepositorioEstadoPedido(new ElGordo.App.Persistencia.AppContext());
+            this._repEstadoFactura = new RepositorioEstadoFactura(new ElGordo.App.Persistencia.AppContext());
+            this.estadosProducto = _repEstadoProducto.GetAllEstadosProducto();
+            this.estadosPedido = _repEstadoPedido.GetAllEstadosPedido();
+            this.estadosFactura = _repEstadoFactura.GetAllEstadosFactura();
+        }
         public void OnGet()
         {
             //Se inician los objetos en Blanco
@@ -37,8 +47,7 @@ namespace ElGrodo.App.Frontend.Pages
         }
 
         public IActionResult OnPostNuevo()
-        {            
-            //Console.WriteLine(JsonSerializer.Serialize(EstadoProducto));
+        {
             ViewData["Respuesta"] = Alerts.ShowAlert(Alert.Primary, "<span><strong>"+Request.Form["estado"]+"</strong> fue agregado a la lista de Estados.</span>");
             return Page();
         }

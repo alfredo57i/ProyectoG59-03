@@ -11,13 +11,22 @@ namespace ElGrodo.App.Frontend.Pages
 {
     public class IndexPedidoModel : PageModel
     {
-        private static readonly IRepositorioPedido _repoPedido = new RepositorioPedido(new ElGordo.App.Persistencia.AppContext());
-        private static readonly IRepositorioEstadoPedido _repoEstadoPedido = new RepositorioEstadoPedido(new ElGordo.App.Persistencia.AppContext());
-        private static readonly IRepositorioFactura _repoFactura = new RepositorioFactura(new ElGordo.App.Persistencia.AppContext());
-        public IRepositorioProductos _repoProducto = new RepositorioProductos(new ElGordo.App.Persistencia.AppContext());
+        public IRepositorioPedido _repoPedido;
+        public IRepositorioEstadoPedido _repoEstadoPedido;
+        public IRepositorioFactura _repoFactura;
+        public IRepositorioProductos _repoProducto;
         public Pedido Pedido{get;set;}
         public EstadoPedido EstadoPedido{get;set;}
         public Factura Factura{get;set;}
+
+        //Constructor 
+        public IndexPedidoModel()
+        {
+            this._repoPedido = new RepositorioPedido(new ElGordo.App.Persistencia.AppContext());
+            this._repoEstadoPedido = new RepositorioEstadoPedido(new ElGordo.App.Persistencia.AppContext());
+            this._repoFactura = new RepositorioFactura(new ElGordo.App.Persistencia.AppContext());
+            this._repoProducto = new RepositorioProductos(new ElGordo.App.Persistencia.AppContext());
+        }
         public void OnGet(string codigo)
         {
             //Verifica si se envió un código por GET (?codigo=xxx)

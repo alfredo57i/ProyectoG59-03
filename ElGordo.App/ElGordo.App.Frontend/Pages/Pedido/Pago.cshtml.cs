@@ -17,11 +17,11 @@ namespace ElGrodo.App.Frontend.Pages
     public class PagoModel : PageModel
     {
         //Se agregan asignan los repositorios necesarios a variables para acceder a sus metodos
-        private static readonly IRepositorioProductos _repoProducto = new RepositorioProductos(new ElGordo.App.Persistencia.AppContext());
-        private static readonly IRepositorioPedido _repoPedido = new RepositorioPedido(new ElGordo.App.Persistencia.AppContext());
-        private static readonly IRepositorioFactura _repoFactura = new RepositorioFactura(new ElGordo.App.Persistencia.AppContext());        
-        private static readonly IRepositorioEstadoPedido _repoEstadoPedido = new RepositorioEstadoPedido(new ElGordo.App.Persistencia.AppContext());
-        private static readonly IRepositorioEstadoFactura _repoEstadoFactura = new RepositorioEstadoFactura(new ElGordo.App.Persistencia.AppContext());
+        public IRepositorioProductos _repoProducto;
+        public IRepositorioPedido _repoPedido;
+        public IRepositorioFactura _repoFactura;        
+        public IRepositorioEstadoPedido _repoEstadoPedido;
+        public IRepositorioEstadoFactura _repoEstadoFactura;
         
         //Se crean las lista y variables necesarias para generar los datos del pedido
         public List<Carrito> ListaCarrito { get; set; }
@@ -29,6 +29,15 @@ namespace ElGrodo.App.Frontend.Pages
         public Factura Factura{get;set;}
         public int Total { get; set; }
         public List<Detalle> ListaDetalles{get;set;}
+
+        //Constructor
+        public PagoModel(){
+            this._repoProducto = new RepositorioProductos(new ElGordo.App.Persistencia.AppContext());
+            this._repoPedido = new RepositorioPedido(new ElGordo.App.Persistencia.AppContext());
+            this._repoFactura = new RepositorioFactura(new ElGordo.App.Persistencia.AppContext());
+            this._repoEstadoPedido = new RepositorioEstadoPedido(new ElGordo.App.Persistencia.AppContext());
+            this._repoEstadoFactura = new RepositorioEstadoFactura(new ElGordo.App.Persistencia.AppContext());
+        }
 
         //Método principal que se ejecuta al cargar la Página.
         public IActionResult OnGet()
