@@ -12,7 +12,16 @@ Ejecutar desde la capa de Persistencia.
 ```bash
 dotnet ef database update --startup-project ..\ElGordo.App.Consola\
 ```
-Esto genera la base de datos con los estados por defecto para Productos, Facturas y Pedidos, al igual que un usuario **admin** con password **admin** para ingresar al panel de control. Ubicado en la dirección: 
+Esto genera la base de datos con los estados por defecto para Productos, Facturas y Pedidos, al igual que un usuario **admin** con password **admin** para ingresar al panel de control.
 
-https://localhost:5001/Admin
+## Módulo Cliente
 
+URL: https://localhost:5001/
+
+![Image text](/ElGordo.App/ElGordo.App.Frontend/wwwroot/img/Cliente.png)
+
+## Módulo Administrador
+
+URL: https://localhost:5001/Admin
+
+![Image text](/ElGordo.App/ElGordo.App.Frontend/wwwroot/img/Admin.png)
