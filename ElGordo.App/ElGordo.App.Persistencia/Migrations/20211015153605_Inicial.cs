@@ -13,7 +13,7 @@ namespace ElGordo.App.Persistencia.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nombre = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Abreviatura = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -27,7 +27,7 @@ namespace ElGordo.App.Persistencia.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Nombre = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Abreviacion = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -170,6 +170,18 @@ namespace ElGordo.App.Persistencia.Migrations
                     { 1, null, "Disponible" },
                     { 2, null, "NO Disponible" },
                     { 3, null, "Descontinuado" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Producto",
+                columns: new[] { "Id", "Descripcion", "Estado", "Imagen", "Nombre", "Precio" },
+                values: new object[,]
+                {
+                    { 1, "Hamburguesa XXL", 1, "hamburguesa.jpg", "Hamburguesa", 12000f },
+                    { 2, "Perro mini", 1, "perro.jpg", "Perro Caliente", 6000f },
+                    { 3, "Papas extra crujientes", 1, "papas.jpg", "Papas fritas", 4000f },
+                    { 4, "Empanada dietética", 1, "carne.jpg", "Empanada de Carne", 1500f },
+                    { 5, "Empanada que no engorda", 1, "pollo.jpg", "Empanada de Pollo", 1500f }
                 });
 
             migrationBuilder.InsertData(
