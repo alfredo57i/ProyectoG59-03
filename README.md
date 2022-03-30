@@ -16,6 +16,8 @@ Esto genera la base de datos en SQLServer con los estados por defecto para Produ
 
 ## Módulo Cliente
 
+Ejecutar ***dotnet run*** en el frontend
+
 URL: https://localhost:5001/
 
 ![Image text](/ElGordo.App/ElGordo.App.Frontend/wwwroot/img/Cliente.png)
